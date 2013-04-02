@@ -1,0 +1,104 @@
+\chapter{State of the Art}
+
+\section{Introduction}
+
+Social media has become an important source of knowledge, user-generated content has a great potential useful data in terms of business opportunities and research data source. In this dissertation, the author performs a case study on Linked.com, a leading websites in Social Media, and build a knowledge model for the company and professional public profiles. The potential use of the dataset could be similar to \cite{li2012}, where applications will be built on top on the dataset to provide the user with customized data aggregation.
+
+Semantic Web can be regarded as an revolution from Web of documents to Web of data and knowledge.\cite{shadbolt2006} The key factor that differentiate it from traditional web is that, it guarantees machine-readable data that supports automatic reasoning. It increase the interoperability of the data by defining the semantic meanings. Normally, The Resource Description Framework(RDF) is used to describe the resources.
+
+More and more people contribute to the Linked Data Cloud\cite{bizer2009}, for example, government Linked Data has already been maintained by W3C.org, Ontologies and RDF are heavily used in Biomedical domain, the FOAF project has already attracted Social networks to use it to model the users, and the DBpedia, the Semantic version of the Wikipedia, has become the centre of the Web Ontoloies\cite{auer2007}. So we decide to build our knowledge model using RDF, because it can take the advantages of Semantic Web, to support reasoning and machine auto-processing. Apart from that, SPARQL Protocol and RDF Query Language(SPARQL), can be used to infer the facts from RDF triples.
+
+This project focuses on developing the knowledge model representations of user generated content in the context of “Semantic Web”. Ideally, the data model should be general enough so that new knowledge can be inferred from the extracted data. Because we are using RDF triples to represent data, SPARQL will be used as the query tool to answer questions.
+
+In order to generate knowledge models from raw html files of LinkedIn public profiles, a number of challenges are required to be addressed, such as Data Extraction, Knowledge Modeling, Content Integration and Evaluation of Extracted Data. In the next section, we discuss each challenge in detail.
+
+\section{Data Extraction}
+
+\begin{enumerate}
+\item
+Data extraction in general
+
+\cite{bradbury2011} gives a relative short introduction of several ways to mine data from LinkedIn.com, typically, LinkedIn Search, raw data processing, and third-party tools. Among these approaches and tools, the Python Natural Language Toolkit (NTLK) and \cite{russell2011} are two resources that worth to study.
+
+\cite{ferrara2012} provides an up-to-date survey on web data extraction. In this paper, three common techniques for web data extraction is listed: 1. Tree-based approach: analysis on DOM trees. 2. Web wrapper: use procedures to seeks and finds data required. 3. Machine learning approach: using reasoning or other AI techniques to find the data of interest. Also, a complete list of enterprise applications are provided. Finally, the author decides to use Web wrapper approach because it's easy to program and the structure of the raw data is rarely changed.
+
+\cite{bizer2012} discusses four challenges or concerns that every research will encounter in the field of Semantic Web and Big Data. 
+
+  \begin{enumerate}
+    \item
+      Michael mainly focuses on data integration. He also provides a general form for it: 1. Define the concern. 2. Search for candidate data elements. 3. Extract, transform and load (ETL) the candidate data into appropriate formats. 4. Entity resolution to get unique, comprehensive data. 5. Answer the query/solve the problem. 
+    \item
+      Chris tries to motivate people to take the Billion Triple Challenge. The challenge is about using pre-crawled data set to translate different vocabularies into uniform one, discover resources and fuse descriptions into an integrated representation.
+    \item
+      Peter proposes the LOD (Linked Open Data) Ripper, a web portal to combine open government data. 
+    \item
+      Orri believes systematic adoption of DBMS technology into Semantic Web could be a potential opportunity. The challenges exist are: 1. we need to demonstrate the benefit of semantics. 2. smarter database is required for reasoning, but OWL is not enough. 3. we need to bring Linked data and RDF into the regular data-engineering stack.
+  \end{enumerate}
+These challenges are interesting topics that waiting to be addressed. Nevertheless, it provides a brief overview of the current status of Big Data stack.
+
+\item
+Existing approaches
+
+\cite{gatterbauer2007} approaches the problem of web table data extraction by using two-dimensional visual box model. The key difference is that, the traditional approach uses tree-based representation of web pages (HTML/XML), so the whole information extraction is processed in low level, using HTML/XML parses. This paper introduces extracting information from a high level of visual features. It uses the representation of web browser rendering, and save the practitioner from parsing low level CSS, JavaScript, HTML tags. As far as the author can tell, this approach only works for tables and lists, so it cannot be applied to arbitrary elements on web pages.
+
+\cite{atapattu2012} discuss about automatically extracting concepts from Semi-structured data, specifically, they use PowerPoint slides as the knowledge source. They combine ontology learning and natural language processing techniques to produce the knowledge representation. The process as follows: 1. normalizing the text contents by splitting statements, replacing non-alphanumeric symbols, expanding abbreviations, etc. 2. creating parse tree for sentences. 3. defining a set of weighting models. 4. Extracting text features (e.g. topic, title, bullet, sub bullet) for each term and applying ``link-distance algorithm'' to determine to correct concepts. What can be learned from the paper is that they effectively use Natural Language Processing to tag each term and then define weighting models to hierarchically extract concepts using text features. But the problem still exists, that is, the 42\% of overall performance (F-measure) is not enough to apply this techniques into real world E-learning application. Apart from that, in their future work, they plan to introduce multi-media feature extraction into the their paper. However, the author believes increasing the F-measure is much important beacause, without high precision, conceptual knowledge is not reliable to be used.
+
+\cite{hemnani2002} presents a framework that exploits the Web documents using a ``Tree Alignment Algorithm'', in which they build trees iteratively and try to find record boundary and repeating patterns. Then they build ``conceptual graphs'' to represent domain knowledge. Finally they map the conceptual structure to the extracted data items. Because the conceptual graph is directly mapped to a database schema, this approach can reduce the time of converting the extracted content to database records. The approach proposed here could be very useful in this project, which also trying to extract data of interest from semi-structure LinkedIn profile files. However, as far as the author can tell, the approach might be not scallable, as manually creating a ``conceptual graph'' is required, which makes the approach no better than using pure ``Regular Expression'' approach. Nevertheless, we can learn from the ``mapping'' process and adopt it.
+
+\cite{lange2010} describes a method to populate Wikipedia info-boxes from Wikipedia article. It trains ``value extractors'' from training data using structural analysis. Structure discovery algorithm is used to overcome the shortcomings of regular expression, in which it tries to merge important patterns from a frequent pattern list. One thing is not clear in this paper is how to choose correct attribute value among a list of potential attribute values. It does mention using ``Conditional Random Fields'' (CRF) to learn label tokens based on features. ``Combining regular expressions'' provides better results, it worths furth investigation.
+
+\cite{sah2010} talks about metadata extraction from enterprise content. It performs a case study on documents that described by Docbook DTD, which is used widely by many organizations. The motivation of the paper is to provide a novel framework for personalized information retrieval system. It also generate an Ontology for user modelling. This approach is deeply couple with the Docbook content, similar approach might be used in this project as our data are deeply couple with LinkedIn html structure.
+
+\end{enumerate}
+
+\section{Knowledge Modeling}
+
+\begin{enumerate}
+\item
+Semantic Web
+
+\cite{ding2005} demonstrates how to collect, analyze FOAF documents. According to the paper, FOAF is one of the most popular ontology that being used at the moment. One of the main produces of FOAF documents is blog website. It's easy to use FOAF specific tags to identify the documents, and looking for patterns. Apart from above, the reader known from it that LinkedIn.com also use the FOAF ontology, but they protect the FOAF documents from public access. This paper implies that we can use FOAF Ontology to describe LinkedIn public profiles and extend it if necessary. 
+
+\cite{bizer2009} provides a comprehensive state of the art on the Linked Open Data. It introduces ``Linked data principles'', how to publishing Linked Data, publishing tools, existing applications. Also, related developments and research challenges are given to guide the later researchers.
+
+\item
+Making use of existing application
+
+\cite{auer2007} provides a brief introduction about the DBpedia. It firsts talk about the extraction of structure information from Wikipedia, which is followed by a list of datasets. Finally, it talks about how to access, query the dataset online (using HTTP, SPARQL endpoint and RDF dump), how DBpedia interlink with other open datasets, and how to search DBpedia.org using built-in user interface. Through the paper, the authors try to convey a fact that DBpedia is the nucleus of the Web of Data, which is a reasonable claim.
+
+\cite{hellmann2009} talks about a live extraction framework that can consume Wikipedia updates and reflect on the DBpedia triple store. The key process is as follows: 1. Use different extractors to deal with different types of content. 2. Assign states to extractors, namely, an extractor could be in either ``updated'', ``not modified'', or ``remove'' state. 3. Apply heuristic method (by comparing current Axiom to previous one) to minimize the number of triples that need to be updated. To increase the effectiveness of ``mapping'' between Wikipedia and DBpedia, templates are introduced to infer the corrent attribute names and correct values. Keeping DBpedia content up-to-date has several benefits, such as enhancing the integration with Wikipedia, increase the use of DBpedia in live scenarios. So later if the project want to keep the Ontology and triples up-to-date and reflect the instant change in LinkedIn.com, using the approach mention in this paper could be a potential solution.
+
+\cite{mendes2011} gives a detailed introduction of DBpedia Spotlight -- a Web Service to detect DBpedia resources in text. The key improvement of the disambiguation process is: instead of using traditional ``TF-IDF'' to weight the words, it uses ``TF-ICF'' (term frequency-Inverse Candidate Frequency). More over, to maximize the annotation result, the authors suggest use customized configuration when annotating. This web service could be very useful when later the reader tries to annotation the data fields in LinkedIn public profiles.
+
+\item
+Building ontologies
+
+\cite{mika2007} mainly focus on the strategy of building simple Ontologies for social networks. A tripartite model is suggested in this paper, specifically, an Actor-Concept-Instance model. The paper demonstrates the applicability of the model using two examples. The paper also shows how the ontology is emerged based on the model and how it is extended to support Ontology Extraction from Web Pages. However, this approach mainly about Community Ontology Construction, as LinkedIn public profiles has no or very limit connection information, the author cannot apply this model to build the LinkedIn Ontology.
+
+\cite{wang2011} focuses on extracting information from Artificial Intelligence related conference and workshop and building an Ontology for AI. Again, it constructs domain concept knowledge from nested tags. for example, in HTML, <h1> means a more general term than <h2>, so an instance of <h2> is a subclass of an instance of <h1>. Then in the optimization process, it performs ``ontology pruning and union'' to handle concept duplication. However, this strategy might result in wrong classification. To summarize, this approach is very useful provided the user knows the contents in the web pages is valid for hierarchical classification. It could not be generalized for other loose structured websites.
+
+\end{enumerate}
+
+\section{Content Integration}
+\begin{enumerate}
+\item Classification
+
+\cite{sebastiani2002} gives a very comprehensive introduction about machine learning in text categorization. document indexing and dimensionality reduction are common techniques to increase the effectiveness of accessing data. Probability classifiers, decision tree classifiers, on-line methods, neural networks, etc. At last, measures of effectiveness was discussed. At the moment, we leaves the ``Summary'' section in public profiles. But if we need more detail knowledge for the Ontology, we might use the approach listed in this paper.
+
+\cite{godbole2010} proposes an approach to build re-usable dictionary repositories for text mining. The key idea is to build a new dictionary by using synomyms from existing dictionary. The problem the reader can see from the approach is, too rely on the dictionary selection. So if the practioner choose an inappropriate dictionary to start with, he will end up getting nothing back since the similarity value is too low. Apart from that, according to the authors, the idea of generating text corpus for the existing dictionaries can save about 50\%-60\% of time.
+
+\cite{bohm2010} talks about how to integrate government data from different data sources. The integration flow is as follows: 1. Mapping and Scrubbing. They maps attributes to a simple global schema, and cleansing on data value level. 2. Data Transformation, in which they transforms the source data structure to the global schema and separates data of different types. 3. Deduplication. A tool called Duplicate Detection Toolkit was used to match across data sources. 4. Entity Fusion. They fused the matched entities to obtain a single representation. ``Dempster-Shafer-Theory'' is used to induce weights for attributes.
+
+\end{enumerate}
+
+\section{Data Evaluation}
+\begin{enumerate}
+\item
+Data quality measurements
+
+\cite{ochoa2006} lists quality metrics for metadata. This project can use some of these metrics directly to evaluate the quality of the result of the data mining. Data Completeness is achieved by comparing extracted data with the ``ideal'' representation. Data Accuracy can be achieved by the degree of correctness. In this project, it's possible to compare manually collected data with the automatically extracted data. Conformance to expectations is a way to test whether the schema meets the requirement of use cases, and supports arbitrary complex queries. So, the metrics list in this paper can evaluate the quality of the data.
+
+\cite{mendes2012} presents a Linked data quality assessment and fusion framework that can be used to measure, express the quality of data. It's a part of the Linked Data Integration Framework (LDIF). The integration process works as follows: 1. access web data, 2, map the vocabulary from different schema using R2R framework. 3. LDIF also resolutes multiple identifiers for the same entity by using ``Silk-Link Specification Language''. 4. the data quality assessment module contains a set of scoring functions, and it also support user-extend scoring function and customization. 5. finally, the data fusion module includes conflict ignoring, avoiding and resolution strategies to ``sieve'' the data and generate a cleaner representation. Since this paper focus on both quality measurement and data fusion, what we can use from this paper is the Data Quality Assessment module. It's possible to use the built-in scoring functions directly or implement new methods.
+
+\end{enumerate}
+

@@ -1,0 +1,2 @@
+\bibliography{reference}                               %% also use the \bibliography command
+\bibliographystyle{plain}
