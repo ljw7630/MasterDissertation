@@ -1,4 +1,4 @@
-PWD /Users/jinwu/SugarSync/Lecture/Mobile and Ubiquitous Computing - State of the Art/my dissertation
+PWD /Users/jinwu/GitHub/MasterDissertation
 INPUT /usr/local/texlive/2012/texmf.cnf
 INPUT /usr/local/texlive/2012/texmf/web2c/texmf.cnf
 INPUT /usr/local/texlive/2012/texmf-var/web2c/pdftex/pdflatex.fmt
@@ -47,6 +47,8 @@ INPUT /usr/local/texlive/2012/texmf-dist/tex/latex/amsmath/amsbsy.sty
 INPUT /usr/local/texlive/2012/texmf-dist/tex/latex/amsmath/amsbsy.sty
 INPUT /usr/local/texlive/2012/texmf-dist/tex/latex/amsmath/amsopn.sty
 INPUT /usr/local/texlive/2012/texmf-dist/tex/latex/amsmath/amsopn.sty
+INPUT /usr/local/texlive/2012/texmf-dist/tex/latex/url/url.sty
+INPUT /usr/local/texlive/2012/texmf-dist/tex/latex/url/url.sty
 INPUT /usr/local/texlive/2012/texmf-dist/tex/latex/biblatex/biblatex.sty
 INPUT /usr/local/texlive/2012/texmf-dist/tex/latex/biblatex/biblatex.sty
 INPUT /usr/local/texlive/2012/texmf-dist/tex/latex/etoolbox/etoolbox.sty
@@ -59,8 +61,6 @@ INPUT /usr/local/texlive/2012/texmf-dist/tex/latex/logreq/logreq.def
 INPUT /usr/local/texlive/2012/texmf-dist/tex/latex/logreq/logreq.def
 INPUT /usr/local/texlive/2012/texmf-dist/tex/latex/base/ifthen.sty
 INPUT /usr/local/texlive/2012/texmf-dist/tex/latex/base/ifthen.sty
-INPUT /usr/local/texlive/2012/texmf-dist/tex/latex/url/url.sty
-INPUT /usr/local/texlive/2012/texmf-dist/tex/latex/url/url.sty
 INPUT /usr/local/texlive/2012/texmf-dist/tex/latex/biblatex/blx-compat.def
 INPUT /usr/local/texlive/2012/texmf-dist/tex/latex/biblatex/blx-compat.def
 INPUT /usr/local/texlive/2012/texmf-dist/tex/latex/biblatex/biblatex.def
@@ -124,6 +124,18 @@ INPUT /usr/local/texlive/2012/texmf-var/fonts/map/pdftex/updmap/pdftex.map
 INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
 INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
 INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmsl12.tfm
+INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmtt12.tfm
+INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
+INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmr6.tfm
+INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm
+INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmmi8.tfm
+INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmmi6.tfm
+INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
+INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm
+INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm
+INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
+INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm
+INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
 INPUT images/semantic-web-stack.png
 INPUT ./images/semantic-web-stack.png
 INPUT ./images/semantic-web-stack.png
@@ -133,20 +145,8 @@ INPUT ./images/link-data-cloud.png
 INPUT ./images/link-data-cloud.png
 INPUT /usr/local/texlive/2012/texmf-dist/tex/latex/base/omlcmr.fd
 INPUT /usr/local/texlive/2012/texmf-dist/tex/latex/base/omlcmr.fd
-INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm
 INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmti12.tfm
 INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmcsc10.tfm
-INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmtt12.tfm
-INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
-INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmr6.tfm
-INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmmi8.tfm
-INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmmi6.tfm
-INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
-INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm
-INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm
-INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
-INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm
-INPUT /usr/local/texlive/2012/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
 INPUT thesis.aux
 INPUT chapter1.aux
 INPUT chapter1.aux

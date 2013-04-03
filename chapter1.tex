@@ -24,7 +24,7 @@ In order to generate knowledge models from raw HyperText Markup Language (html) 
 	\item
 	Michael L. Brodie mainly focuses on data integration. He also provides a general form for it: 1. Define the concern. 2. Search for candidate data elements. 3. Extract, transform and load (ETL) the candidate data into appropriate formats. 4. Entity resolution to get unique, comprehensive data. 5. Answer the query/solve the problem. 
 	\item
-	Christian Bizer tries to motivate people to take the Billion Triple Challenge (http://challenge.semanticweb.org/). The challenge is about using pre-crawled data set to translate different vocabularies into uniform one, discover resources and fuse descriptions into an integrated representation. So the main challenges here are: 1. Large-scale RDF processing. 2. Data quality. 3. Data Integration. 
+	Christian Bizer tries to motivate people to take the Billion Triple Challenge (\url{http://challenge.semanticweb.org/}). The challenge is about using pre-crawled data set to translate different vocabularies into uniform one, discover resources and fuse descriptions into an integrated representation. So the main challenges here are: 1. Large-scale RDF processing. 2. Data quality. 3. Data Integration. 
 	\item
 	Peter Boncz proposes the Linked Open Data Ripper, a web portal to combine open government data. The main challenges are the accessibility and the usability of  the public government data. He is looking for robust, reliable user interfaces that integrate Linked Data from multiple sources and allow users to query the data more easily.  
 	\item
@@ -50,7 +50,9 @@ These challenges are interesting topics that waiting to be addressed. Neverthele
 
 \section{Knowledge Modelling}
 
-\subsection{Introduction}
+We are living in the era of Web 2.0, which means that large scale of the user-generated content are available on the Internet in a loose or semi-structure format.  Traditionally, Data Mining is performed on relational databases or data warehouse, in a way that practitioners look for unaware patterns internally.  But gathering data from blooming Social Media websites cannot be fully addressed in the traditional approach, as most of the websites are producing HTML or XML files. A mapping between raw data format and relational database table is required but hard to generalise to other data consumers.  
+
+That's why we need Semantic Web. Semantic Web aims to replace the Web of documents to the Web of machine processable, automatic reasoning web services or web databases. It provides interoperability to data by strictly narrow down the data into triples and allow each piece reference others using unique resource identifier. The potential of Semantic Web is difficult to estimate, it might totally change the development paradigm\cite{bergman2009advantages}: data drive possible applications instead of what we do today, applications determine data format.
 
 \subsection{Semantic Web Technologies}
 
@@ -84,7 +86,9 @@ These challenges are interesting topics that waiting to be addressed. Neverthele
 
 \cite{bizer2009} provides a comprehensive state of the art on the Linked Open Data (LOD). It introduces ``Linked data principles'', how to publishing Linked Data, publishing tools, existing applications. Also, related developments and research challenges are given to guide the later researchers.
 
-\subsection{Using LOD to build useful Applications}
+\subsection{Linked Open Data}
+
+As mention in the previous section, Linked Open Data is a movement that data providers start to publish and link their data to each other in RDF format. As more and more important websites join in this movement, LOD is becoming a huge knowledge graph. DBpedia, a RDF version of Wikipedia, now become the centre of Open Data Cloud. A lot of tools have been built for LOD\cite{bizer2009}, for instance, Linked Data search engines, allow you quickly look for the documents you are interested int; publishing tools, allow you quickly publish the data in RDF even though the origin files in display in other format. Our project aims to contribute to the LOD in a way  that we provide LinkedIn public knowledge in RDF through web service.
 
 \cite{auer2007} provides a brief introduction about the DBpedia. It firsts talk about the extraction of structure information from Wikipedia, which is followed by a list of datasets. Finally, it talks about how to access, query the dataset online (using HTTP, SPARQL endpoint and RDF dump), how DBpedia interlink with other open datasets, and how to search DBpedia.org using built-in user interface. Through the paper, the authors try to convey a fact that DBpedia is the nucleus of the Web of Data, which is a reasonable claim.
 
@@ -98,6 +102,7 @@ These challenges are interesting topics that waiting to be addressed. Neverthele
 
 \cite{wang2011} focuses on extracting information from Artificial Intelligence related conference and workshop and building an Ontology for AI. Again, it constructs domain concept knowledge from nested tags. for example, in HTML, \textless h1\textgreater means a more general term than \textless h2\textgreater, so an instance of \textless h2\textgreater is a subclass of an instance of \textless h1\textgreater. Then in the optimisation process, it performs ``ontology pruning and union'' to handle concept duplication. However, this strategy might result in wrong classification. To summarise, this approach is very useful provided the user knows the contents in the web pages is valid for hierarchical classification. It could not be generalised for other loose structured websites.
 
+In this project, our goal is to build an Ontology for LinkedIn public profiles using automated process. The reasons for doing that are, firstly, Linkedin.com is one of the main knowledge sources for professional information. People publish their education, skills, experiences on the site and we expect these kinds of information can answer a lot questions. For example, decision maker may want to track the trending of an industry by looking at the number of employees and the number of new startups in the specific area. Secondly, we choose Semantic Web because we want to link the knowledge into the Web of knowledge (LOD) to maximise the usability of our data.  The interoperability feature provided by RDF can lead to flexible use of triples (Again, in this case, data can drive the application developments)
 
 %\section{Content Integration}
 %\subsection{Classification}
