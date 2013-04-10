@@ -56,7 +56,7 @@ That's why we need Semantic Web. Semantic Web aims to replace the Web of documen
 
 \subsection{Semantic Web Technologies}
 
-Semantic Web technology stack can be thought as a layered graph as shown in ~\ref{fig:SemanticWebStack}. We are going to introduce some of the technologies in this section.
+Semantic Web technology stack can be thought as a layered graph as shown in Figure~\ref{fig:SemanticWebStack}. We are going to introduce some of the technologies in this section.
 
 \clearpage
 
@@ -73,19 +73,19 @@ Semantic Web technology stack can be thought as a layered graph as shown in ~\re
 
 \item[Uniform resource identifier (URI)]: A string that can be used to uniquely identify a web resource. According to \cite{berners2006design}, URI is considered as the standard resource identifier to represent any HTML or RDF object or concept. The reason behind that is others can easily access the resources using Hypertext Transfer Protocol (HTTP) requests.
 
-\item[Resource Description Framework (RDF)]: An expression in RDF is a ``subject-predicate-object" triple. It can be represented by a graph where the subject and the object is the start node and end node and the predicate is the link. Nodes can be a URI or a literal.  It has a variety of notations such as N3, Turtle, and XML, but they are all interchangeable. Notice that it just a data model that allows us to describe things that in a specific syntax, but has no assumption.
+\item[Resource Description Framework (RDF)]: RDF is a graph-based data model that used in Semantic Web. It represents knowledge using a triple structure. An expression in RDF is a ``subject-predicate-object" triple. It can be represented by a graph where the subject and the object is the start node and end node and the predicate is the link. Nodes can be a URI or a literal.  It has a variety of notations such as N3, Turtle, and XML, but they are all interchangeable. Notice that it just a data model that allows us to describe things that in a specific syntax, but has no assumption.
 
-\item[RDF Schema (RDFS)]: Is a set of classes and properties that use the RDF language to provide basic ontologies. It intends to provide vocabularies to standardise the structure of RDF resources.
+\item[RDF Schema (RDFS)]: It intends to provide vocabularies to standardise the structure of RDF resources. It is a set of classes and properties that use the RDF language to provide basic ontologies. The reason we need these vocabularies is that RDF Triple itself is not informative enough.  Different datasets need a standard (just like protocol) to communicate, otherwise, no one will understand the ``semantic" of other datasets. So RDFS specifies a basic vocabulary such as: subClassOf, DataType, domain, range, etc. to structure the RDF resources.
 
-\item[Web Ontology Language (OWL)]: OWL aims to add more constraints on RDFS to describe resources in details. For example, OWL add more expressivity and constraints on top of RDFS.
+\item[Web Ontology Language (OWL)]: OWL aims to add more constraints on RDFS to describe resources in details. For example, owl defines disjointWith, complementOf, equivalentClass, and cardinality on top of RDFS. It makes the triple expression become more expressive and specific.
 
-\item[Link Open Data Cloud]: It's a community project that trying to set RDF links between public datasets. The best way to feel the impact of the Cloud is to visualise the graph:
+\item[Link Open Data Cloud]: It's a community effort to unlock hidden semantics in a way that making RDF publicly available using open standards and protocols. The best way to feel the impact of the Cloud is to visualise the graph (Figure~\ref{fig:LinkDataCloud}):
 
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=150mm]{images/link-data-cloud.png}
 \caption{Link Data Cloud}
-\label{LinkDataCloud}
+\label{fig:LinkDataCloud}
 \end{figure}
 \end{description}
 
@@ -95,7 +95,7 @@ Semantic Web technology stack can be thought as a layered graph as shown in ~\re
 
 \subsection{Linked Open Data}
 
-As mention in the previous section, Linked Open Data is a movement that data providers start to publish and link their data to each other in RDF format. As more and more important websites join in this movement, LOD is becoming a huge knowledge graph. DBpedia, a RDF version of Wikipedia, now become the centre of Open Data Cloud. A lot of tools have been built for LOD\cite{bizer2009}, for instance, Linked Data search engines, allow you quickly look for the documents you are interested int; publishing tools, allow you quickly publish the data in RDF even though the origin files in display in other format. Our project aims to contribute to the LOD in a way  that we provide LinkedIn public knowledge in RDF through web service.
+As mention in the previous section, Linked Open Data is a movement that data providers start to publish and link their data to each other in RDF format. It enables\cite{heath2011linked}: sophisticated data processing, connecting distributed data and change the world from Data Islands to a Global Data Space. The bar for publishing the Linked data is not restrict, as it only needs to conform following basic principles\cite{berners2006design}: 1. Use URIs to name the things and use HTTP URIs to guarantee accessibility, 2. Provide standard information when users access it (RDF*, SPARQL), 3. Include links to other URIs. As more and more important websites join in this movement, LOD is becoming a huge knowledge graph. DBpedia, a	 RDF version of Wikipedia, now become the centre of Open Data Cloud. A lot of tools have been built for LOD\cite{bizer2009}, for instance, Linked Data search engines, allow you quickly look for the documents you are interested int; publishing tools, allow you quickly publish the data in RDF even though the origin files in display in other format. Our project aims to contribute to the LOD in a way  that we provide LinkedIn public knowledge in RDF through web service.
 
 \cite{auer2007} provides a brief introduction about the DBpedia. It firsts talk about the extraction of structure information from Wikipedia, which is followed by a list of datasets. Finally, it talks about how to access, query the dataset online (using HTTP, SPARQL endpoint and RDF dump), how DBpedia interlink with other open datasets, and how to search DBpedia.org using built-in user interface. Through the paper, the authors try to convey a fact that DBpedia is the nucleus of the Web of Data, which is a reasonable claim.
 
@@ -105,7 +105,7 @@ As mention in the previous section, Linked Open Data is a movement that data pro
 
 \subsection{Building ontologies}
 
-\cite{mika2007} mainly focus on the strategy of building simple Ontologies for social networks. A tripartite model is suggested in this paper, specifically, an Actor-Concept-Instance model. The paper demonstrates the applicability of the model using two examples. The paper also shows how the ontology is emerged based on the model and how it is extended to support Ontology Extraction from Web Pages. However, this approach mainly about Community Ontology Construction, as LinkedIn public profiles has no or very limit connection information. In our approach, we will try to enhance linkage/mapping to other datasets.
+\cite{mika2007} mainly focus on the strategy of building simple Ontologies for social networks. A tripartite model is suggested in this paper, specifically, an Actor-Concept-Instance model. The paper demonstrates the applicability of the model using two examples. The paper also shows how the ontology is emerged based on the model and how it is extended to support Ontology Extraction from Web Pages. However, this approach mainly about Community Ontology Construction, as LinkedIn public profiles has no or very limit connection information. In our approach, we will try to enhance linkage/mapping to other datasets, like DBpedia (for general information), Academic Institution Internal Structure Ontology (AIISO) (for academic skills, courses), Freebase (for general subjects), etc.
 
 \cite{wang2011} focuses on extracting information from Artificial Intelligence related conference and workshop and building an Ontology for AI. Again, it constructs domain concept knowledge from nested tags. for example, in HTML, \textless h1\textgreater means a more general term than \textless h2\textgreater, so an instance of \textless h2\textgreater is a subclass of an instance of \textless h1\textgreater. Then in the optimisation process, it performs ``ontology pruning and union'' to handle concept duplication. However, this strategy might result in wrong classification. To summarise, this approach is very useful provided the user knows the contents in the web pages is valid for hierarchical classification. It could not be generalised for other loose structured websites.
 
