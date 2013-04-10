@@ -4,9 +4,9 @@
 
 Social media has become an important source of knowledge, user-generated content has a great potential useful data in terms of business opportunities and research data source. In this dissertation, the author performs a case study on Linked.com, a leading websites in Social Media, and build a knowledge model for the company and professional public profiles. The potential use of the dataset could be similar to \cite{li2012}, where applications will be built on top on the dataset to provide the user with customised data aggregation.
 
-Semantic Web can be regarded as an revolution from Web of documents to Web of data and knowledge.\cite{shadbolt2006} The key factor that differentiate it from traditional web is that, it guarantees machine-readable data that supports automatic reasoning. It increase the interoperability of the data by defining the semantic meanings. Normally, The Resource Description Framework(RDF) is used to describe the resources.
+This project focuses on developing the knowledge model representations of user generated content in the context of Semantic Web. Semantic Web can be regarded as an revolution from Web of documents to Web of data and knowledge.\cite{shadbolt2006} The key factor that differentiate it from traditional web is that, it guarantees machine-readable data that supports automatic reasoning. It increase the interoperability of the data by defining the semantic meanings. Normally, The Resource Description Framework(RDF) is used to describe the resources.
 
-More and more people contribute to the Linked Data Cloud\cite{bizer2009}, for example, government Linked Data has already been maintained by W3C.org, Ontologies and RDF are heavily used in Biomedical domain, the FOAF project has already attracted Social networks to use it to model the users, and the DBpedia, the Semantic version of the Wikipedia, has become the centre of the Web Ontoloies\cite{auer2007}. So we decide to build our knowledge model using RDF, because it can take the advantages of Semantic Web, to support reasoning and machine auto-processing. Apart from that, SPARQL Protocol and RDF Query Language(SPARQL), can be used to infer the facts from RDF triples.
+In the context of the Semantic Web, there's a movement that tries to encourage information holders to publish and link their data together; it's called Linked Data. More and more people contribute to the Linked Data Cloud\cite{bizer2009}, for example, government Linked Data has already been maintained by W3C.org, Ontologies and RDF are heavily used in Biomedical domain, the FOAF project has already attracted Social networks to use it to model the users, and the DBpedia, the Semantic version of the Wikipedia, has become the centre of the Web Ontoloies\cite{auer2007}. So we decide to build our knowledge model using RDF, because it can take the advantages of Semantic Web, to support reasoning and machine auto-processing. Apart from that, SPARQL Protocol and RDF Query Language(SPARQL), can be used to infer the facts from RDF triples.
 
 This project focuses on developing the knowledge model representations of user generated content in the context of Semantic Web. Ideally, the data model should be general enough so that new knowledge can be inferred from the extracted data. Because we are using RDF triples to represent data, SPARQL will be used as the query tool to answer questions.
 
@@ -56,21 +56,28 @@ That's why we need Semantic Web. Semantic Web aims to replace the Web of documen
 
 \subsection{Semantic Web Technologies}
 
+Semantic Web technology stack can be thought as a layered graph as shown in ~\ref{fig:SemanticWebStack}. We are going to introduce some of the technologies in this section.
+
+\clearpage
+
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=90mm]{images/semantic-web-stack.png}
-\caption{Semantic Web Stack}
-\label{SemanticWebStack}
+\caption{Semantic Web Stack\protect\footnotemark}
+\label{fig:SemanticWebStack}
 \end{figure}
 
+\footnotetext{Copy from Dr. Rob Brennan's lecture notes.}
+
 \begin{description}
+
 \item[Uniform resource identifier (URI)]: A string that can be used to uniquely identify a web resource. According to \cite{berners2006design}, URI is considered as the standard resource identifier to represent any HTML or RDF object or concept. The reason behind that is others can easily access the resources using Hypertext Transfer Protocol (HTTP) requests.
 
 \item[Resource Description Framework (RDF)]: An expression in RDF is a ``subject-predicate-object" triple. It can be represented by a graph where the subject and the object is the start node and end node and the predicate is the link. Nodes can be a URI or a literal.  It has a variety of notations such as N3, Turtle, and XML, but they are all interchangeable. Notice that it just a data model that allows us to describe things that in a specific syntax, but has no assumption.
 
 \item[RDF Schema (RDFS)]: Is a set of classes and properties that use the RDF language to provide basic ontologies. It intends to provide vocabularies to standardise the structure of RDF resources.
 
-\item[Web Ontology Language (OWL)]: OWL aims to add more constraints on RDFS to describe resources in details. For example, OWL add more vocabularies so that set operation is supported. Unlike RDFS, which tells you how you can use a certain vocabulary, OWL also tell you what you cannot do.
+\item[Web Ontology Language (OWL)]: OWL aims to add more constraints on RDFS to describe resources in details. For example, OWL add more expressivity and constraints on top of RDFS.
 
 \item[Link Open Data Cloud]: It's a community project that trying to set RDF links between public datasets. The best way to feel the impact of the Cloud is to visualise the graph:
 
