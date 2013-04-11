@@ -84,10 +84,12 @@ Semantic Web technology stack can be thought as a layered graph as shown in Figu
 \begin{figure}[ht!]
 \centering
 \includegraphics[width=150mm]{images/link-data-cloud.png}
-\caption{Link Data Cloud}
+\caption{Link Data Cloud\protect\footnotemark}
 \label{fig:LinkDataCloud}
 \end{figure}
 \end{description}
+
+\footnotetext{Attribution: ``Linking Open Data cloud diagram, by Richard Cyganiak and Anja Jentzsch. http://lod-cloud.net/"}
 
 \cite{ding2005} demonstrates how to collect, analyse FOAF documents. According to the paper, FOAF is one of the most popular ontology that being used at the moment. One of the main produces of FOAF documents is blog website. It's easy to use FOAF specific tags to identify the documents, and looking for patterns. Apart from above, the reader known from it that LinkedIn.com also use the FOAF ontology, but they protect the FOAF documents from public access. This paper implies that we can use FOAF Ontology to describe LinkedIn public profiles and extend it if necessary. 
 
@@ -105,16 +107,17 @@ As mention in the previous section, Linked Open Data is a movement that data pro
 
 \subsection{Building ontologies}
 
+Even though in Semantic Web, there's still no formal definition of the word "ontology", we can think of it as a collection of terms that  defines the concepts and relationships of an area\footnote{http://www.w3.org/standards/semanticweb/ontology}. It is the cornerstone of the Semantic Web; by publishing ontologies and combining them together, the web of knowledge will finally be constructed. 
+
 \cite{mika2007} mainly focus on the strategy of building simple Ontologies for social networks. A tripartite model is suggested in this paper, specifically, an Actor-Concept-Instance model. The paper demonstrates the applicability of the model using two examples. The paper also shows how the ontology is emerged based on the model and how it is extended to support Ontology Extraction from Web Pages. However, this approach mainly about Community Ontology Construction, as LinkedIn public profiles has no or very limit connection information. In our approach, we will try to enhance linkage/mapping to other datasets, like DBpedia (for general information), Academic Institution Internal Structure Ontology (AIISO) (for academic skills, courses), Freebase (for general subjects), etc.
 
 \cite{wang2011} focuses on extracting information from Artificial Intelligence related conference and workshop and building an Ontology for AI. Again, it constructs domain concept knowledge from nested tags. for example, in HTML, \textless h1\textgreater means a more general term than \textless h2\textgreater, so an instance of \textless h2\textgreater is a subclass of an instance of \textless h1\textgreater. Then in the optimisation process, it performs ``ontology pruning and union'' to handle concept duplication. However, this strategy might result in wrong classification. To summarise, this approach is very useful provided the user knows the contents in the web pages is valid for hierarchical classification. It could not be generalised for other loose structured websites.
 
 In this project, our goal is to build an Ontology for LinkedIn public profiles using automated process. The reasons for doing that are, firstly, Linkedin.com is one of the main knowledge sources for professional information. People publish their education, skills, experiences on the site and we expect these kinds of information can answer a lot questions. For example, decision maker may want to track the trending of an industry by looking at the number of employees and the number of new startups in the specific area. Secondly, we choose Semantic Web because we want to link the knowledge into the Web of knowledge (LOD) to maximise the usability of our data.  The interoperability feature provided by RDF can lead to flexible use of triples (Again, in this case, data can drive the application developments)
 
-%\section{Content Integration}
-%\subsection{Classification}
-
 \section{Content Integration and Classification}
+
+One of the major problems in information extraction (IE), especially in social media information extraction is the variety of the similar words. For example,  in LinkedIn.com, a user can claim himself as "Graduated from Trinity College Dublin", meanwhile, another user will say she is studding at "TCD". When we build an ontology and try to link our data to LOD, we really have to be very careful about declaiming a term more than once. A false positive result is also not acceptable, in a way that we might misclassify address "Dublin" in "Dublin Core" as the capital of Ireland. So finding ways to clean up the data and classify them correctly are considered two complex tasks in IE.
 
 \cite{sebastiani2002} gives a very comprehensive introduction about machine learning in text categorisation. document indexing and dimensionality reduction are common techniques to increase the effectiveness of accessing data. Probability classifiers, decision tree classifiers, on-line methods, neural networks, etc. At last, measures of effectiveness was discussed. At the moment, we will not try to parse the ``Summary'' section in public profiles (In LinkedIn profiles, the summary section is where users write ``abstract" about themselves). But if we need more detail knowledge for the Ontology, we might use the approach listed in this paper.
 
@@ -122,9 +125,9 @@ In this project, our goal is to build an Ontology for LinkedIn public profiles u
 
 \cite{bohm2010} talks about how to integrate government data from different data sources. The integration flow is as follows: 1. Mapping and Scrubbing. They maps attributes to a simple global schema, and cleansing on data value level. 2. Data Transformation, in which they transforms the source data structure to the global schema and separates data of different types. 3. Deduplication. A tool called Duplicate Detection Toolkit was used to match across data sources. 4. Entity Fusion. They fused the matched entities to obtain a single representation. ``Dempster-Shafer-Theory'' is used to induce weights for attributes. We can investigate the mapping process since we will require map person to other linked dataset instances.
 
-\section{Evaluation of the Extracted Metadata}
+\section{Evaluation of the Extracted Data}
 
-%\subsection{Data quality measurements}
+As everyone can publish their data on the Internet, the evaluation of the data quality becomes a very important aspect in Ontology building. People cannot or hard to reuse the data with bad quality, so publishing the data without quality assurance will significantly reduce the value and the reusability of the data. Therefore, we evaluated some metrics and a data assessment framework:
 
 \cite{ochoa2006} lists quality metrics for metadata. This project can use some of these metrics directly to evaluate the quality of the result of the data mining. Data Completeness is achieved by comparing extracted data with the ``ideal'' representation. Data Accuracy can be achieved by the degree of correctness. In this project, it's possible to compare manually collected data with the automatically extracted data. We can use user studies, by introduce volunteers to extract the data. Then by investigating the manually collected results to machine auto-generated ones, we will have some confidence about our data correctness. Conformance to expectations is a way to test whether the schema meets the requirement of use cases, and supports arbitrary complex queries. Because our dataset will be used by another project: ``Leveraging Power of Social Media and Data Visualisation", we can evaluate the dataset by looking at whether the data is complied with the user and visualisation requirements. So, the metrics list in this paper can evaluate the quality of the data.
 
