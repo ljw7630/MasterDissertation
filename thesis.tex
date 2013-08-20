@@ -35,6 +35,13 @@
 \usepackage{url}
 \usepackage[bibstyle= nature, citestyle=numeric-comp, sorting=none]{biblatex}
 
+\usepackage{array,booktabs,datatool}
+\usepackage{float}
+\restylefloat{table}
+
+\usepackage[acronym]{glossaries}
+\makeglossaries
+
 \bibliography{reference}                               %% also use the \bibliography command
 
 
@@ -76,13 +83,14 @@
 %\renewcommand{\labelenumi}{\thesection.\arabic{enumi}}
 %\renewcommand{\labelenumii}{\arabic{enumii}.}
 
-% \renewcommand{\thesisauthor}{Li Jinwu}            %% Your official UT name.
-% \renewcommand{\thesismonth}{September}                  %% Your month of graduation.
-% \renewcommand{\thesisyear}{2013}                      %% Your year of graduation.
-% %\renewcommand{\thesistitle}{\large{General Title:} \\ \LARGE{Specific Title}}            %% The title of your thesis; use mixed-case.
-% \renewcommand{\thesistitle}{\LARGE{Developing knowledge models of social media over World Wide Web}}            %% The title of your thesis; use mixed-case.
-% \renewcommand{\thesisauthorpreviousdegrees}{B.Sc.}  %% Your previous degrees, abbreviated; separate multiple degrees by commas.
-% \renewcommand{\thesissupervisor}{Sah Melike}      %% Your thesis supervisor; use mixed-case and don't use any titles or degrees.
+\renewcommand{\thesisauthor}{Li Jinwu}            %% Your official UT name.
+\renewcommand{\thesismonth}{September}                  %% Your month of graduation.
+\renewcommand{\thesisyear}{2013}                      %% Your year of graduation.
+%\renewcommand{\thesistitle}{\large{General Title:} \\ \LARGE{Specific Title}}            %% The title of your thesis; use mixed-case.
+
+\renewcommand{\thesistitle}{\LARGE{Developing knowledge models of social media over World Wide Web}}            %% The title of your thesis; use mixed-case.
+\renewcommand{\thesisauthorpreviousdegrees}{B.Sc.(Hons)}  %% Your previous degrees, abbreviated; separate multiple degrees by commas.
+\renewcommand{\thesissupervisor}{Sah Melike}      %% Your thesis supervisor; use mixed-case and don't use any titles or degrees.
 % % \renewcommand{\thesiscosupervisor}{}                %% Your PhD. thesis co-supervisor; if any.
 
 % % \renewcommand{\thesiscommitteemembera}{}
@@ -95,7 +103,7 @@
 % % \renewcommand{\thesiscommitteememberh}{}
 % % \renewcommand{\thesiscommitteememberi}{}
 
-% \renewcommand{\thesisauthoraddress}{Dublin, Ireland}
+\renewcommand{\thesisauthoraddress}{Dublin, Ireland}
 
 % %\renewcommand{\thesisdedication}{...}     %% Your dedication, if you have one; use "\\" for linebreaks.
 
@@ -113,19 +121,19 @@
 %                                      %% Replace the "..." with the correct
 %                                      %% number of members.
 
-% \renewcommand{\thesisdegree}{Master of Science in Computer Science}  %% Uncomment this only if your thesis
+\renewcommand{\thesisdegree}{Master of Science in Computer Science}  %% Uncomment this only if your thesis
 %                                      %% degree is NOT "DOCTOR OF PHILOSOPHY"
 %                                      %% for \phdthesis or "MASTER OF ARTS"
 %                                      %% for \mastersthesis.  Provide the
 %                                      %% correct FULL OFFICIAL name of
 %                                      %% the degree.
 
-% \renewcommand{\thesisdegreeabbreviation}{M.Sc.}
+\renewcommand{\thesisdegreeabbreviation}{M.Sc.}
 %                                      %% Use this if you also use the above
 %                                      %% command; provide the OFFICIAL
 %                                      %% abbreviation of your thesis degree.
 
-% \renewcommand{\thesistype}{Dissertation}    %% Use this ONLY if your thesis type
+\renewcommand{\thesistype}{Dissertation}    %% Use this ONLY if your thesis type
 %                                      %% is NOT "Dissertation" for \phdthesis
 %                                      %% or "Thesis" for \mastersthesis.
 %                                      %% Provide the OFFICIAL type of the
@@ -142,47 +150,47 @@
 
 \begin{document}                                  %% BEGIN THE DOCUMENT
 
-% \thesistitlepage                                  %% Generate the title page.
+\thesistitlepage                                  %% Generate the title page.
 
-% \thesisdeclarationpage				  %% Generate the declaration page.
+\thesisdeclarationpage				  %% Generate the declaration page.
 
-% \thesispermissionpage				  %% Generate the copyright permission page
+\thesispermissionpage				  %% Generate the copyright permission page
 
 %\thesisdedicationpage                             %% Generate the dedication page.
 
-% \begin{thesisacknowledgments}                     %% Use this to write your
+\begin{thesisacknowledgments}                     %% Use this to write your
 % 			                          %% acknowledgments; it can be anything
 % Give many thanks and stuff...
 
-% \end{thesisacknowledgments}                       %% allowed in LaTeX2e par-mode.
+\end{thesisacknowledgments}                       %% allowed in LaTeX2e par-mode.
 
-% \begin{thesisabstract}
+\begin{thesisabstract}
 
 % The abstract or summary or whatever...
 
-% \end{thesisabstract}
+\end{thesisabstract}
 
-% \tableofcontents                                  %% Generate table of contents.
-% \listoftables                                     %% Uncomment this to generate list of tables.
-% \listoffigures                                    %% Uncomment this to generate list of figures.
+\tableofcontents                                  %% Generate table of contents.
+\listoftables                                     %% Uncomment this to generate list of tables.
+\listoffigures                                    %% Uncomment this to generate list of figures.
 
 %%
 %% Include thesis chapters here...
 %%
   \include{chapter1}                                
-%   \include{chapter2}                                
-%   \include{chapter3}
-%   \include{chapter4}
-%   \include{chapter5}
-%   \include{chapter6}
-%   \include{chapter7}
+  \include{chapter2}                                
+  \include{chapter3}
+  \include{chapter4}
+  \include{chapter5}
+  \include{chapter6}
+  \include{chapter7}
 
 
 % %\addcontentsline {toc}{chapter}{Appendices}       %% Force Appendices to appear in contents
-% \begin{appendix}
-% \include{appendix1}
+\begin{appendix}
+\include{appendix1}
 % %\include{appendix2}
-% \end{appendix}
+\end{appendix}
 
 
 %\addcontentsline {toc}{chapter}{Bibliography}     %% Force Bibliography to appear in contents
