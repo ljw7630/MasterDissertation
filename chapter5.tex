@@ -1,13 +1,22 @@
-\chapter{Evaluations}
+\chapter{Evaluations}\label{chap:eval}
 
 \newcommand{\round}[1]{\DTLround{#1}{#1}{4}#1}
 
-\section{Evaluation setup}
+\section{Evaluation, the rationale}
 
-define evaluations and justify
-discussion for each section
+As discussed in Chapter 2, we need to evaluate the quality of the data we extracted. \cite{ochoa2006} sugguest a number of quality metrics, in this project, we will use Data Completeness, Data Accuracy and Conformance to Expectation (Data fitness) to evaluate our work. The reason for chosing them is because: 
+
+\begin{description}
+	\item Data Completeness can reflect how complete the LinkedIn profile is. It's an important statistics we can get from LinkedIn.com as people always interest in how complete for these profiles in general. It also a hint for future research since we can quickly identify sparse data fields and intensive data fields.
+	\item Data Accuracy is where we introduce volunteers to manually extract the data out from the HTML files and ask them to rate our results from 1 to 5. By calculating prediction precisions, recalls, f-measures (will be discussed later) and user average ratings, we can know how well our parser and our data normalization is.
+	\item Data fitness is to measure how well our knowledge model and our dataset match the requirements of the upper layer user interface. In this part, we collect feedbacks from the developer of the Data Visualization project, and the drawbacks will be presented in our future works.
+\end{description}
 
 \subsection{Data completeness}
+
+In this section, we present the completeness of profiles in LinkedIn.com. Researchers who also interested in LinkedIn.com public profiles can use this statistics as a measure, to avoid the fields that are too sparse.
+
+Table~\ref{tab:NumCount} shows the total number of personal profiles, company profiles and total number of skills in all of the profiles. These numbers are base numbers that will be used to calculate the percentage in the following tables.
 
 \begin{table}[H]
     \begin{tabular}{|c|c|}
@@ -16,9 +25,12 @@ discussion for each section
     Total number of company profiles         & 24778 \\ \hline
     Total number of skills                   & 15917 \\ \hline
     \end{tabular}
+  	\label{tab:NumCount}
 \end{table}
 
 \subsubsection{Public personal profile completeness}
+
+Many people do not fill their complete work experiences and education backgrounds into LinkedIn, therefore, in our 13014 randomly download and selected profiles, we can have an overview of the percentage of people have sections that are missing.
 
 \begin{table}[H]
     \begin{tabular}{|c|c|c|}
@@ -34,6 +46,9 @@ discussion for each section
 \end{table}
 
 \subsubsection{Company profile completeness}
+
+Not every company will register in LinkedIn company to have a company profile. If a company in a person's work experience registered on LinkedIn.com, there's a hyperlink that link the company name to the complete company profile. If the company is not registered, there will be not such hyperlink. So we can easily draw a conclusion from Table~\ref{tab:ComPercent}, around 46\% of companies in Ireland register in LinkedIn.com.
+
 \begin{table}[H]
     \begin{tabular}{|c|c|c|}
     \hline
@@ -42,20 +57,62 @@ discussion for each section
     Company profiles that have organisation type & 11351  & 45.8\%                             \\ \hline
     Company profiles that have company size info & 11343  & 45.8\%                             \\ \hline
     \end{tabular}
+    \label{tab:ComPercent}
 \end{table}
 
 \subsubsection{Data linkage}
+
+The definition of RDF data linkage is: average\_linkage=$\frac{total\_number\_of\_links}{total\_number\_of\_objects}$. It's a measurement of how ``sparse'' of the RDF data is. Generally, high linkage means high correlation between objects.
 
 \begin{table}[H]
     \begin{tabular}{|c|c|}
     \hline
     Total number of objects & 160251 \\ \hline
     Total number of links   & 415916 \\ \hline
-    Linkage                 & 2.595  \\ \hline
+    Average linkage                 & 2.595  \\ \hline
     \end{tabular}
 \end{table}
 
-\subsection{Metadata quality}
+\subsection{Data Accuracy (extracted metadata quality)}
+
+\subsubsection{Evaluation setup}
+
+We recruited 10 users, divided them into 5 groups, so each group have 2 participants. Each group of users will view same 10 randomly selected profiles. They were asked to manually extract city, work experiences (including company names, job titles, job start dates and job end dates) and education backgrounds (including college names, majors, degrees, college start dates, college end dates).
+
+Then after the user fill in the data, we display what they entered as well as what we automatically extracted data, and ask them to rate our results, from 1 to 5, where score 5 is highest.
+
+Below are the screenshots for the user interfaces:
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=1.0\textwidth]{images/user-input.png}
+	\caption{Online user evaluation website: User manually extracted data\protect}
+	\label{fig:UserInput}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[scale=0.8]{images/user-compare.png}
+	\caption{Online user evaluation website: Asking user compare manually extracted data with automatically extracted data\protect}
+	\label{fig:UserCompare}
+\end{figure}
+
+\subsubsection{Results}
+
+After the user evaluation, we take user input as the ground truth, we use string matching to compare entered data with automatic extracted data. If the string matching return false, we manually examine the data and decide whether the extracted data is correct.
+
+The metrics here we use are precision, recall and f-measure.
+\begin{equation}\label{eq:precision}
+	precision=\frac{correctly\_predicted}{predicted}
+\end{equation}
+\begin{equation}\label{eq:recall}
+	recall=\frac{correctly\_predicted}{total}
+\end{equation}
+\begin{equation}\label{eq:fmeasure}
+	f-measure=\frac{2 * precision * recall }{precision + recall}
+\end{equation}
+
+The meaning of these metrics can be explained as follows\cite{powers2011evaluation}: Precision, or confidence, is focus on how good we are predicting; Recall, or sensitivity is a measure of the proportion we correctly precited over total data size. F-measure, or F-score is designed to capture both precision and recall. In order to get high F-score, precision and recall must be high.
 
 \begin{table}[H]
 	\centering
@@ -65,12 +122,14 @@ discussion for each section
 	\toprule \hline 
 	\bfseries User & \bfseries Precision & \bfseries Recall & \bfseries F-Measure
 	\DTLforeach{citycsv}{\user=user, \precision=precision, \recall=recall, \fmeasure=fmeasure}{%
-	\ifthenelse{\value{DTLrowi}=1}{\tabularnewline \hline}{\tabularnewline}
-	\user & \round{\precision} & \round{\recall} & \round{\fmeasure}} \\
+	\ifthenelse{\value{DTLrowi}=1}{\tabularnewline \hline}{\tabularnewline \hline}
+	\user & \round{\precision} & \round{\recall} & \round{\fmeasure} } \\
 	\hline \bottomrule
 	\end{tabular}
 	\label{tab:cityResult}
 \end{table}
+
+According to the score, users are quite satisfy with our city information extraction strategy. Despite the fact that some lazy volunteer didn't fill in the ground truth, we still getting average of 0.85 F-score. It's acceptable for us to do complex query using person's city information.
 
 \begin{table}[H]
 	\centering
@@ -80,7 +139,7 @@ discussion for each section
 	\toprule \hline 
 	\bfseries User & \bfseries Precision & \bfseries Recall & \bfseries F-Measure
 	\DTLforeach{companycsv}{\user=user, \precision=precision, \recall=recall, \fmeasure=fmeasure}{%
-	\ifthenelse{\value{DTLrowi}=1}{\tabularnewline \hline}{\tabularnewline}
+	\ifthenelse{\value{DTLrowi}=1}{\tabularnewline \hline}{\tabularnewline \hline}
 	\user & \round{\precision} & \round{\recall} & \round{\fmeasure}} \\
 	\hline \bottomrule
 	\end{tabular}
@@ -95,7 +154,7 @@ discussion for each section
 	\toprule \hline 
 	\bfseries User & \bfseries Precision & \bfseries Recall & \bfseries F-Measure
 	\DTLforeach{jobtitlecsv}{\user=user, \precision=precision, \recall=recall, \fmeasure=fmeasure}{%
-	\ifthenelse{\value{DTLrowi}=1}{\tabularnewline \hline}{\tabularnewline}
+	\ifthenelse{\value{DTLrowi}=1}{\tabularnewline \hline}{\tabularnewline \hline}
 	\user & \round{\precision} & \round{\recall} & \round{\fmeasure}} \\
 	\hline \bottomrule
 	\end{tabular}
@@ -110,7 +169,7 @@ discussion for each section
 	\toprule \hline 
 	\bfseries User & \bfseries Precision & \bfseries Recall & \bfseries F-Measure
 	\DTLforeach{experiencefromcsv}{\user=user, \precision=precision, \recall=recall, \fmeasure=fmeasure}{%
-	\ifthenelse{\value{DTLrowi}=1}{\tabularnewline \hline}{\tabularnewline}
+	\ifthenelse{\value{DTLrowi}=1}{\tabularnewline \hline}{\tabularnewline \hline}
 	\user & \round{\precision} & \round{\recall} & \round{\fmeasure}} \\
 	\hline \bottomrule
 	\end{tabular}
@@ -125,12 +184,14 @@ discussion for each section
 	\toprule \hline 
 	\bfseries User & \bfseries Precision & \bfseries Recall & \bfseries F-Measure
 	\DTLforeach{experiencetocsv}{\user=user, \precision=precision, \recall=recall, \fmeasure=fmeasure}{%
-	\ifthenelse{\value{DTLrowi}=1}{\tabularnewline \hline}{\tabularnewline}
+	\ifthenelse{\value{DTLrowi}=1}{\tabularnewline \hline}{\tabularnewline \hline}
 	\user & \round{\precision} & \round{\recall} & \round{\fmeasure}} \\
 	\hline \bottomrule
 	\end{tabular}
 	\label{tab:experiencetoResult}
 \end{table}
+
+The previous four tables illustrate our parsed result for work experiences. With the average F-score greater than 0.9, we can accept the parse result. The reason for such high result in both company name and job title is, we didn't perform data normalization in these two fields. Basically, volunteers copy and paste these information to our survey form, and that's what our parser do. So strings are fully matched, the score is high.
 
 \begin{table}[H]
 	\centering
@@ -140,7 +201,7 @@ discussion for each section
 	\toprule \hline 
 	\bfseries User & \bfseries Precision & \bfseries Recall & \bfseries F-Measure
 	\DTLforeach{collegecsv}{\user=user, \precision=precision, \recall=recall, \fmeasure=fmeasure}{%
-	\ifthenelse{\value{DTLrowi}=1}{\tabularnewline \hline}{\tabularnewline}
+	\ifthenelse{\value{DTLrowi}=1}{\tabularnewline \hline}{\tabularnewline \hline}
 	\user & \round{\precision} & \round{\recall} & \round{\fmeasure}} \\
 	\hline \bottomrule
 	\end{tabular}
@@ -155,7 +216,7 @@ discussion for each section
 	\toprule \hline 
 	\bfseries User & \bfseries Precision & \bfseries Recall & \bfseries F-Measure
 	\DTLforeach{majorcsv}{\user=user, \precision=precision, \recall=recall, \fmeasure=fmeasure}{%
-	\ifthenelse{\value{DTLrowi}=1}{\tabularnewline \hline}{\tabularnewline}
+	\ifthenelse{\value{DTLrowi}=1}{\tabularnewline \hline}{\tabularnewline \hline}
 	\user & \round{\precision} & \round{\recall} & \round{\fmeasure}} \\
 	\hline \bottomrule
 	\end{tabular}
@@ -170,7 +231,7 @@ discussion for each section
 	\toprule \hline 
 	\bfseries User & \bfseries Precision & \bfseries Recall & \bfseries F-Measure
 	\DTLforeach{degreecsv}{\user=user, \precision=precision, \recall=recall, \fmeasure=fmeasure}{%
-	\ifthenelse{\value{DTLrowi}=1}{\tabularnewline \hline}{\tabularnewline}
+	\ifthenelse{\value{DTLrowi}=1}{\tabularnewline \hline}{\tabularnewline \hline}
 	\user & \round{\precision} & \round{\recall} & \round{\fmeasure}} \\
 	\hline \bottomrule
 	\end{tabular}
@@ -185,7 +246,7 @@ discussion for each section
 	\toprule \hline 
 	\bfseries User & \bfseries Precision & \bfseries Recall & \bfseries F-Measure
 	\DTLforeach{educationfromcsv}{\user=user, \precision=precision, \recall=recall, \fmeasure=fmeasure}{%
-	\ifthenelse{\value{DTLrowi}=1}{\tabularnewline \hline}{\tabularnewline}
+	\ifthenelse{\value{DTLrowi}=1}{\tabularnewline \hline}{\tabularnewline \hline}
 	\user & \round{\precision} & \round{\recall} & \round{\fmeasure}} \\
 	\hline \bottomrule
 	\end{tabular}
@@ -200,81 +261,87 @@ discussion for each section
 	\toprule \hline 
 	\bfseries User & \bfseries Precision & \bfseries Recall & \bfseries F-Measure
 	\DTLforeach{educationtocsv}{\user=user, \precision=precision, \recall=recall, \fmeasure=fmeasure}{%
-	\ifthenelse{\value{DTLrowi}=1}{\tabularnewline \hline}{\tabularnewline}
+	\ifthenelse{\value{DTLrowi}=1}{\tabularnewline \hline}{\tabularnewline \hline}
 	\user & \round{\precision} & \round{\recall} & \round{\fmeasure}} \\
 	\hline \bottomrule
 	\end{tabular}
-	\label{educationtoResult}
+	\label{tab:educationtoResult}
 \end{table}
+
+The scores for fields in educatin background are not that promising. The college names and degree information have high average F-score, that's because we have a good ground truth documents in Lucene text search engine. But for major, we got an average score of 0.648, which means we cannot correctly classify the major names. In the future, we might need natural language processing and college subjects database to get a better results.
+
+This evaluation helps us discover a problem in extracting college start date and end date. Since our system makes a wrong assumption about the format of the start date and end date(as 'yyyy-mm-dd'), we could not capture the fact that the start date and end date format in education background is 'yyyy'. This finding also prove that doing user study is very important in system evaluation.
 
 \subsubsection{Average scores}
 
+Apart from precisions, recalls and F-measure, we also collect user ratings for each field and user overall rating for each profile. From these ratings, we get similar conclusion about how well is our parser and data normalization working. We need to improve the classification of major and degree information and fix the bug in our education start date and end date extraction.
+
 \begin{figure}[H]
 \centering
-\includegraphics[width=90mm]{images/evaluation/average_city_score.png}
+\includegraphics[width=110mm]{images/evaluation/average_city_score.png}
 \caption{User average rating for city}
 \label{fig:city}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=90mm]{images/evaluation/average_company_score.png}
+\includegraphics[width=110mm]{images/evaluation/average_company_score.png}
 \caption{User average rating for company name}
 \label{fig:company}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=90mm]{images/evaluation/average_job_title_score.png}
+\includegraphics[width=110mm]{images/evaluation/average_job_title_score.png}
 \caption{User average rating for job title}
 \label{fig:job_title}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=90mm]{images/evaluation/average_experience_start_date_score.png}
+\includegraphics[width=110mm]{images/evaluation/average_experience_start_date_score.png}
 \caption{User average rating for experience start data}
 \label{fig:experiencestart}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=90mm]{images/evaluation/average_experience_end_date_score.png}
+\includegraphics[width=110mm]{images/evaluation/average_experience_end_date_score.png}
 \caption{User average rating for experience end data}
 \label{fig:experienceend}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=90mm]{images/evaluation/average_college_score.png}
+\includegraphics[width=110mm]{images/evaluation/average_college_score.png}
 \caption{User average rating for college}
 \label{fig:college}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=90mm]{images/evaluation/average_major_score.png}
+\includegraphics[width=110mm]{images/evaluation/average_major_score.png}
 \caption{User average rating for major}
 \label{fig:major}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=90mm]{images/evaluation/average_degree_score.png}
+\includegraphics[width=110mm]{images/evaluation/average_degree_score.png}
 \caption{User average rating for degree}
 \label{fig:degree}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=90mm]{images/evaluation/average_education_start_date_score.png}
+\includegraphics[width=110mm]{images/evaluation/average_education_start_date_score.png}
 \caption{User average rating for education start data}
 \label{fig:educationstart}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=90mm]{images/evaluation/average_education_end_date_score.png}
+\includegraphics[width=110mm]{images/evaluation/average_education_end_date_score.png}
 \caption{User average rating for education end data}
 \label{fig:educationend}
 \end{figure}
@@ -288,18 +355,41 @@ This section is a reflection on how the extracted triples fit to the data visual
 	The first scenario is that the interface should reflect the needs of Government officers. The fields that used by them are: city, industry type, academic degree and company size.
 	\item Scenario 2, Company's human resource department \hfill \\
 	The user interface also support daily queries from HR. The fields that used in this scenario are: city, degree, skill, work experience and start date.
-	\item Scenario3, Job seeker and college student
+	\item Scenario 3, Job seekers and college students
 	This part allows users get insights about the employment status by city. The fields that used in this scenario are: city, degree, skill and position.
 \end{description}
 
-During the development and evaluation, we found there're some drawbacks of the extracted data that makes the user interface hard to develop and use:
+During the development and evaluation, we found there're some drawbacks of the extracted data that makes the query and the user interface hard to develop and use:
 \begin{enumerate}
-	\item Do not have information to group similar job title together.
-	\item Colleges, companies may have aliases.
+	\item Do not have information to group similar job title together. This is important as we want our query return more correct result and in the meantime keeps the query as simple as possible. For example, when one querying ``software engineer'' similar terms such as ``application developer, Java software engineer'' should all return as these job titles have no significant difference if we want to compare this job in IT over another industry. Doing this classification is hard, we will discuss 
+	\item Company names may have aliases. One example is ``Oracle'' and ``Oracle EMEA''. But since we cannot find company names database as ground truth, our system cannot handle this problem. This issue is very similar to the previous one, it needs we have very accurate ground truth.
+	\item As SPARQL has very limit function in datatime manipultation, the start date and end date approach in our model is not working really well. For example, if one user is looking for ``How many people had been working in a company for more then 5 years?''. The query is very hard to write so it would be easier if our model have ``year between'' field that address this requirement.
 \end{enumerate}
 
-\section{Results}
+The details of possible solution of drawbacks will be discussed in next chapter, future works section.
 
-\subsection{Contributed vocabulary}
+\section{System performance}
 
-\subsection{RDF triples}
+In \autoref{subsec:env}, we list our software and hardware details. Here we want to show the performance of some critical modules, to provide more comprehensive details of the system.
+
+\subsection{Parsing performance}
+We run our parser 10 times, each time it parses 100 randomly selected profiles, the average time spending on parsing 100 profiles is: 18.27 seconds.
+
+\subsection{Normalising and converting performance}
+We run our RDF converter 10 times, each time in try to normalize the data in 100 profiles and convert it into RDF triples, the average time spending on this is: 
+
+\subsection{Query performance}
+
+\section{Contributions}
+\subsection{Resuable knowledge model from Linkedin public profiles}
+As shown in Figure~\ref{fig:KnowledgeModel}, we present a queryable, extendable knowledge graph that capture the data relationship of LinkedIn.com public profiles and company profiles. It can be used by LinkedIn internally or by other researchers who also interested in user generated content in LinkedIn.com.
+
+\subsection{Public online SPARQL endpoint for complex query about Irish industry}
+We publish our SPARQL endpoint at \url{http://goo.gl/5HyziV}. It's a standard SPARQL endpoint that powered by 4store\cite{harris20094store}. Our endpoint accept HTTP POST requests and support a number of RDF format, such as XML, JSON, plain and turtle. Anyone who interested in discover Irish industry and college facts can use this service.
+
+\subsection{Scalable crawling strategy}
+The crawling strategy is scalable to any numbers of LinkedIn public profiles. If we consider a profile is a node, since in the profile, LinkedIn will suggest 6 to 8 similar profiles (nodes), the graph is expanding very quickly (exponential increase). Therefore, data mining practitioners (and other researchers) can make use of our strategy, as discussed in \autoref{chap:impl}, to download profiles in any subdomains of LinkedIn.
+
+\subsection{Mashup based city information extraction strategy}
+
+Based on our user study, the strategy is widely accepted by our survey participants, with average of 0.85 F-score and 4.089/5 user rating. The approach can be generalize to get city information by company names. Another approach is to use Google reverse Geocoding service\footnote{\url{https://developers.google.com/maps/documentation/javascript/geocoding?csw=1\#ReverseGeocoding}}. However, even we don't have comparison result on hand, the result provided by reverse geocoding service seems to worse than using a country's yellowpage database.

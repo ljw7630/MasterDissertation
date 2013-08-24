@@ -32,15 +32,24 @@
 \usepackage{anysize}
 \usepackage{enumitem}
 \usepackage{amsmath}
+
 \usepackage{url}
+\urlstyle{rm}
+
 \usepackage[bibstyle= nature, citestyle=numeric-comp, sorting=none]{biblatex}
 
+\usepackage[center]{caption}
+
 \usepackage{array,booktabs,datatool}
+\renewcommand{\arraystretch}{0.8} %% reduce row height
+
 \usepackage{float}
 \restylefloat{table}
 
 \usepackage[acronym]{glossaries}
 \makeglossaries
+
+\usepackage{hyperref}
 
 \bibliography{reference}                               %% also use the \bibliography command
 
@@ -61,8 +70,8 @@
                                      %% The default is \centerchapter.
 
 % \singlespace                       %% Uncomment one of these if you want
-% \oneandhalfspace                   %% single-spacing, space-and-a-half
- \doublespace                       %% or double-spacing; the default is
+ \oneandhalfspace                   %% single-spacing, space-and-a-half
+% \doublespace                       %% or double-spacing; the default is
                                      %% \oneandhalfspace, which is the
                                      %% minimum spacing accepted by the
                                      %% Graduate School.
@@ -183,7 +192,7 @@
   \include{chapter4}
   \include{chapter5}
   \include{chapter6}
-  \include{chapter7}
+%%  \include{chapter7}
 
 
 % %\addcontentsline {toc}{chapter}{Appendices}       %% Force Appendices to appear in contents

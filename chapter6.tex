@@ -1,3 +1,15 @@
 \chapter{Conclusions and Future Work}
 
+\section{Conclusions}
+Generally speaking, \gls{ugc}, is inherently unstructure but informative. Semantic Web is one of the best technologies that tries to solve this problem as it doesn't make any assumption about the form of the data. High flexibility can be guaranteed in creating and maintaining the generated knowledge graph. 
+
+In this case study, we take LinkedIn.com public profiles as research subject, investigate the possibility of converting semi-structure profiles into RDF dataset. We create a knowledge graph that can express the semantics behind the profiles and the relations between nodes. Our project and the upper layer user interface (the project ``leveraging power of social media and data visualization'') has proved that Semantic Web technologies can be a good solution to represent unstructure data. In addition, we provide an simple way to download a large amount of LinkedIn.com public profiles and extract the user's current living city information from the raw HTML files. Finally, we contribute a public SPARQL endpoint that allow everyone query about facts in LinkedIn Ireland.
+
 \section{Future work}
+\subsection{Company names and job tiles classification}
+In \autoref{chap:eval} we discuss the data fitness of our generated triples. The major problem is that the company names and job titles do not have semantics. One example would be: if we query about ``Microsoft'' there's no hint about ``Microsoft Ireland'' is also a valid result for this query. So our query cannot always obtain the correct answers because some possible aliases might not be included in the result set.
+
+One possible solution is to find ground truth datasets that include a large amount of company names and job titles. But this approach is unrealistic because the possible combinations for job title, for example, are infinite. We might look for a machine learning approach, which first extract a large amount of metadata from the profiles we extracted, then create a ``game'' that ask volunteers manually link the data with same meaning. With this validation dataset, we can easy to apply different machine learning algorithms to see which one is better.
+
+\subsection{Expand the current dataset}
+At the moment, the public SPARQL endpoint has only 13,000 LinkedIn Ireland personal public profiles. We still want to include most of the profiles in LinkedIn Ireland to get a complete understanding about Irish industry. Even if, downloading and parsing such lar

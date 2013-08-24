@@ -1,10 +1,49 @@
-\chapter{Implementation}
+\chapter{Implementation}\label{chap:impl}
 
-\section{Technology stack}
+\section{Programming languages and corresponding libraries}
 
-\subsection{Programming languages}
+\subsection{Python and its libraries}
+As discussed in previous chapter, We used Python as the main programming language. During the implementation period, the below is a list of Python libraries that helped to finish this project:
+\begin{description}
+	\item Beautiful Soup \hfill \\
+	A easy-to-use library for parsing HTML documents. It provides both flexibility and performance for parsing HTMl or XML files.
+	\item RDFLib \hfill \\
+	RDFLib is a library that allow Python to manipulate RDF files. It has RDF parser, serializer and also SPARQL 1.1 implementation. This library is all we need for RDF format conversion. And we can also test our data with its built-in SPARQL query API.
+\end{description}
 
-\subsection{System environment}
+\subsection{Java and Lucene text search engine}
+For data normailization, the final decision is to use Lucene text search engine. According to \cite{McCandless2010LAS}, Lucene is a simple and power API for full-text indexing and searching. But we don't need the most powerful part of it, we only take the advantage of its keyword search and fuzzy search (by using Edit Distance\cite{Cormen2001IA}).
 
-\subsection{Semantic web technologies}
+\newacronym{jvm}{JVM}{Java Virtual Machine}
+Another option is pylucene. It is the Python wrapper for Lucene text search engine. However, the project seems to only working on some particular version of \gls{jvm}, which means that it is hard to migrate to arbitrary machine.
 
+Therefore, we use Java to implement our data normalization engine and use socket to communicate with our Python modules. The process of the socket communication in shown in Figure~\ref{fig:SystemArchitecture}.
+
+\subsection{System environment}\label{subsec:env}
+
+The technologies and libraries used in this project are all open source. In order to utilize the command line and built-in tools, UNIX-like system is used in development but there is not problem in running the code on Windows machine. It requires Python2.7 and Java1.7.
+
+The production environment is Amazon EC2 Ubuntu12.04. The CPU is Intel(R) Xeon(R) CPU-E52650, 2.00GHz, 64 bit. The memory is 4GB.
+
+\section{Stategy}
+
+Two strategies are worth mentioned during the development. One is the strategy of scalable profile downloading. With this approach, one can easily download any number of profiles in any LinkedIn subdomain.
+
+\subsection{Profile download strategy}
+In LinkedIn API documentation\footnote{LinkedIn Developers' Documentation: https://developer.linkedin.com/apis}, there is no method for one to download public profile without OAuth Authentication. One thing to note here is we will not disclose LinkedIn users personal information and we are downloading the public profiles, therefore we are legally valid to perform this action.
+
+Inspired by \cite{li2012}, we decide to combine google keywork search and google site operator to get the profile urls. Hence, the google query is constituted by two parts: the keyword part and the query domain part. In order to get more query result to improve the performance of the profile download module, we decide to use common Irish names as keywords. For the second part, after we carefully invesigate same samples, we decide to use ``http://ie.linkedin.com/pub/'' as the site operator. The url means: ``public profile directory for LinkedIn Ireland''. Therefore, the final query string is: "{Name} site:http://ie.linkedin.com/pub/".
+
+Besides, every downloaded LinkedIn personal public profile has a section called ``Viewers of this profile also viewed...'', in which LinkedIn will suggest around six to eight similar users to the viewer. Therefore, one downloaded profile can link to 6 to 8 profiles, we can do this again and again. Even conflicts might happen but ideally, we can download most of the profiles in LinkedIn Ireland.
+
+\subsection{City extraction strategy}
+We need city information in our RDF triplestore for every profile, if possible. The reason for that is the upper layer \acrlong{ui} is designed around comparing different numbers across cities. Therefore, without the city information, our triplestore cannot reflect facts of interest.
+
+The strategy is quite simple, it constitutes of three cases:
+\begin{enumerate}
+	\item Case 1: If the person's current living city is shown on the profile, we use our HTML parser to get it.
+	\item Case 2: If the information is not in the profile, we can sort the companies that this person had worked in, in reverse chronological order. For each of the company, we query goldenpages.ie\footnote{http://www.goldenpages.ie/}, which contains most of the companies' information. We get the first return city as the person's current living city, and also set all return cities as the company's located city. (As a large amount of company will have offices in different city.)
+	\item Case 3: If the person has no work experience or the company he worked in doesn't register on goldenpages.ie, we get the city base on his education experience, in reverse chronological order, again.
+\end{enumerate}
+
+In the next chapter, statistics will be shown to demonstrate the strategy is working well based on user study.
