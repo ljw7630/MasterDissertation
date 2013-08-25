@@ -11,17 +11,16 @@ In order to answer the research questions and produce public dataset at the end,
 \end{enumerate}
 
 Additionally, the system also have a number of non-functional requirements that need to be fulfilled:
-\begin{enumerate}
-	\item Performance \hfill \\
-	\begin{description}
-		\item Crawling performance and parsing performance \hfill \\
-		The system should be able to download and parse enough profiles in a small number of days. Because timeliness is the nature of user generated content, if it takes too long to do this, we lost the chance of getting first hand information.
-		\item Query performance \hfill \\
-		The system should be able to respond to the query from user interface quickly enough to make sure the \gls{ui} usability.
+
+\begin{description}
+	\item \textbf{Crawling performance and parsing performance} \hfill \\
+	The system should be able to download and parse enough profiles in a small number of days. Because timeliness is the nature of user generated content, if it takes too long to do this, we lost the chance of getting first hand information.
+	\item Query performance \hfill \\
+	The system should be able to respond to the query from user interface quickly enough to make sure the \gls{ui} usability.
 	\item The choise of programming language(s) \hfill \\
 	The ideal programming language(s) for this project should be dynamic typing, widely used, cross platform scripting language. The reason behind that is we want quickly iterate the program. As parsing and converting user generated content are hard, we cannot make assumptions about anything. Therefore, statically typed, compiled programming language (such as C++ and Java) is incapable for this task. Perl, Python are two possible options. But since Python is easy to learn and have rich communities support in terms of Semantic Web and Natural Language processing, we finally decide to use Python to implement our parse and RDF converter.
-	\end{description}
-\end{enumerate}
+\end{description}
+
 
 \section{Knowledge model}
 

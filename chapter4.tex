@@ -1,4 +1,4 @@
-\chapter{Implementation}\label{chap:impl}
+\chapter{Implementation}
 
 \section{Programming languages and corresponding libraries}
 
@@ -12,27 +12,27 @@ As discussed in previous chapter, We used Python as the main programming languag
 \end{description}
 
 \subsection{Java and Lucene text search engine}
-For data normailization, the final decision is to use Lucene text search engine. According to \cite{McCandless2010LAS}, Lucene is a simple and power API for full-text indexing and searching. But we don't need the most powerful part of it, we only take the advantage of its keyword search and fuzzy search (by using Edit Distance\cite{Cormen2001IA}).
+For data normalisation, the final decision is to use Lucene text search engine. According to \cite{McCandless2010LAS}, Lucene is a simple and power API for full-text indexing and searching. But we don't need the most powerful part of it, we only take the advantage of its keyword search and fuzzy search (by using Edit Distance\cite{Cormen2001IA}).
 
 \newacronym{jvm}{JVM}{Java Virtual Machine}
 Another option is pylucene. It is the Python wrapper for Lucene text search engine. However, the project seems to only working on some particular version of \gls{jvm}, which means that it is hard to migrate to arbitrary machine.
 
-Therefore, we use Java to implement our data normalization engine and use socket to communicate with our Python modules. The process of the socket communication in shown in Figure~\ref{fig:SystemArchitecture}.
+Therefore, we use Java to implement our data normalisation engine and use socket to communicate with our Python modules. The process of the socket communication in shown in Figure~\ref{fig:SystemArchitecture}.
 
-\subsection{System environment}\label{subsec:env}
+\subsection{System environment}
 
-The technologies and libraries used in this project are all open source. In order to utilize the command line and built-in tools, UNIX-like system is used in development but there is not problem in running the code on Windows machine. It requires Python2.7 and Java1.7.
+The technologies and libraries used in this project are all open source. In order to utilise the command line and built-in tools, UNIX-like system is used in development but there is not problem in running the code on Windows machine. It requires Python2.7 and Java1.7.
 
-The production environment is Amazon EC2 Ubuntu12.04. The CPU is Intel(R) Xeon(R) CPU-E52650, 2.00GHz, 64 bit. The memory is 4GB.
+The development environment is Mac OSX Mountain Lion 10.8, while the production environment is Amazon EC2 Ubuntu12.04.
 
-\section{Stategy}
+\section{Strategy}
 
 Two strategies are worth mentioned during the development. One is the strategy of scalable profile downloading. With this approach, one can easily download any number of profiles in any LinkedIn subdomain.
 
 \subsection{Profile download strategy}
 In LinkedIn API documentation\footnote{LinkedIn Developers' Documentation: https://developer.linkedin.com/apis}, there is no method for one to download public profile without OAuth Authentication. One thing to note here is we will not disclose LinkedIn users personal information and we are downloading the public profiles, therefore we are legally valid to perform this action.
 
-Inspired by \cite{li2012}, we decide to combine google keywork search and google site operator to get the profile urls. Hence, the google query is constituted by two parts: the keyword part and the query domain part. In order to get more query result to improve the performance of the profile download module, we decide to use common Irish names as keywords. For the second part, after we carefully invesigate same samples, we decide to use ``http://ie.linkedin.com/pub/'' as the site operator. The url means: ``public profile directory for LinkedIn Ireland''. Therefore, the final query string is: "{Name} site:http://ie.linkedin.com/pub/".
+Inspired by \cite{li2012}, we decide to combine google keyword search and google site operator to get the profile urls. Hence, the google query is constituted by two parts: the keyword part and the query domain part. In order to get more query result to improve the performance of the profile download module, we decide to use common Irish names as keywords. For the second part, after we carefully investigate same samples, we decide to use ``http://ie.linkedin.com/pub/'' as the site operator. The url means: ``public profile directory for LinkedIn Ireland''. Therefore, the final query string is: "{Name} site:http://ie.linkedin.com/pub/".
 
 Besides, every downloaded LinkedIn personal public profile has a section called ``Viewers of this profile also viewed...'', in which LinkedIn will suggest around six to eight similar users to the viewer. Therefore, one downloaded profile can link to 6 to 8 profiles, we can do this again and again. Even conflicts might happen but ideally, we can download most of the profiles in LinkedIn Ireland.
 

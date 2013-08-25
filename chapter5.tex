@@ -4,12 +4,13 @@
 
 \section{Evaluation, the rationale}
 
-As discussed in Chapter 2, we need to evaluate the quality of the data we extracted. \cite{ochoa2006} sugguest a number of quality metrics, in this project, we will use Data Completeness, Data Accuracy and Conformance to Expectation (Data fitness) to evaluate our work. The reason for chosing them is because: 
+As discussed in Chapter 2, we need to evaluate the quality of the data we extracted. \cite{ochoa2006} suggest a number of quality metrics, in this project, we will use Data Completeness, Data Accuracy, User perceived data quality and Conformance to Expectation (Data fitness) to evaluate our work. The reason for choosing them is because: 
 
 \begin{description}
-	\item Data Completeness can reflect how complete the LinkedIn profile is. It's an important statistics we can get from LinkedIn.com as people always interest in how complete for these profiles in general. It also a hint for future research since we can quickly identify sparse data fields and intensive data fields.
-	\item Data Accuracy is where we introduce volunteers to manually extract the data out from the HTML files and ask them to rate our results from 1 to 5. By calculating prediction precisions, recalls, f-measures (will be discussed later) and user average ratings, we can know how well our parser and our data normalization is.
-	\item Data fitness is to measure how well our knowledge model and our dataset match the requirements of the upper layer user interface. In this part, we collect feedbacks from the developer of the Data Visualization project, and the drawbacks will be presented in our future works.
+	\item \textbf{Data Completeness} can reflect how complete the LinkedIn profile is. It's an important statistics we can get from LinkedIn.com as people always interest in how complete for these profiles in general. It also a hint for future research since we can quickly identify sparse data fields and intensive data fields.
+	\item \textbf{Data Accuracy} is where we introduce volunteers to manually extract the data out from the HTML files and ask them to rate our results from 1 to 5. By calculating prediction precisions, recalls, f-measures (will be discussed later) and user average ratings, we can know how well our parser and our data normalisation is.
+	\item \textbf{User Perceived Data Quality} is simplified version of Data Accuracy. We present our results and show the user extracted resutls, then ask user rate our result from 1 to 5. As precision, recall and f-measure are too complex for people who do not have mathematic background, simple ratings can be more user friendly.
+	\item \textbf{Data fitness} is to measure how well our knowledge model and our dataset match the requirements of the upper layer user interface. In this part, we collect feedbacks from the developer of the Data Visualisation project, and the drawbacks will be presented in our future works.
 \end{description}
 
 \subsection{Data completeness}
@@ -25,6 +26,7 @@ Table~\ref{tab:NumCount} shows the total number of personal profiles, company pr
     Total number of company profiles         & 24778 \\ \hline
     Total number of skills                   & 15917 \\ \hline
     \end{tabular}
+    \caption{Total number of personal profiles, company profiles and skills}
   	\label{tab:NumCount}
 \end{table}
 
@@ -39,7 +41,7 @@ Many people do not fill their complete work experiences and education background
     Profiles that have work experiences                           & 11501  & 88.4\%                             \\ \hline
     Profiles that have education                                  & 9913   & 77\%                               \\ \hline
     Profiles that have skills                                     & 10511  & 80\%                               \\ \hline
-    Profiles that have city infomation & 10158  & 78\%                               \\ \hline
+    Profiles that have city information & 10158  & 78\%                               \\ \hline
     Profiles that have academic degree information                & 5230   & 40.2\%                             \\ \hline
     Profiles that have college major information                  & 7825   & 60.1\%                             \\ \hline
     \end{tabular}
@@ -57,6 +59,7 @@ Not every company will register in LinkedIn company to have a company profile. I
     Company profiles that have organisation type & 11351  & 45.8\%                             \\ \hline
     Company profiles that have company size info & 11343  & 45.8\%                             \\ \hline
     \end{tabular}
+    \caption{Company profile completeness}
     \label{tab:ComPercent}
 \end{table}
 
@@ -112,7 +115,7 @@ The metrics here we use are precision, recall and f-measure.
 	f-measure=\frac{2 * precision * recall }{precision + recall}
 \end{equation}
 
-The meaning of these metrics can be explained as follows\cite{powers2011evaluation}: Precision, or confidence, is focus on how good we are predicting; Recall, or sensitivity is a measure of the proportion we correctly precited over total data size. F-measure, or F-score is designed to capture both precision and recall. In order to get high F-score, precision and recall must be high.
+The meaning of these metrics can be explained as follows\cite{powers2011evaluation}: Precision, or confidence, is focus on how good we are predicting; Recall, or sensitivity is a measure of the proportion we correctly predicted over total data size. F-measure, or F-score is designed to capture both precision and recall. In order to get high F-score, precision and recall must be high.
 
 \begin{table}[H]
 	\centering
@@ -191,7 +194,7 @@ According to the score, users are quite satisfy with our city information extrac
 	\label{tab:experiencetoResult}
 \end{table}
 
-The previous four tables illustrate our parsed result for work experiences. With the average F-score greater than 0.9, we can accept the parse result. The reason for such high result in both company name and job title is, we didn't perform data normalization in these two fields. Basically, volunteers copy and paste these information to our survey form, and that's what our parser do. So strings are fully matched, the score is high.
+The previous four tables illustrate our parsed result for work experiences. With the average F-score greater than 0.9, we can accept the parse result. The reason for such high result in both company name and job title is, we didn't perform data normalisation in these two fields. Basically, volunteers copy and paste these information to our survey form, and that's what our parser do. So strings are fully matched, the score is high.
 
 \begin{table}[H]
 	\centering
@@ -268,13 +271,13 @@ The previous four tables illustrate our parsed result for work experiences. With
 	\label{tab:educationtoResult}
 \end{table}
 
-The scores for fields in educatin background are not that promising. The college names and degree information have high average F-score, that's because we have a good ground truth documents in Lucene text search engine. But for major, we got an average score of 0.648, which means we cannot correctly classify the major names. In the future, we might need natural language processing and college subjects database to get a better results.
+The scores for fields in education background are not that promising. The college names and degree information have high average F-score, that's because we have a good ground truth documents in Lucene text search engine. But for major, we got an average score of 0.648, which means we cannot correctly classify the major names. In the future, we might need natural language processing and college subjects database to get a better results.
 
 This evaluation helps us discover a problem in extracting college start date and end date. Since our system makes a wrong assumption about the format of the start date and end date(as 'yyyy-mm-dd'), we could not capture the fact that the start date and end date format in education background is 'yyyy'. This finding also prove that doing user study is very important in system evaluation.
 
-\subsubsection{Average scores}
+\subsection{User perceived data quality}
 
-Apart from precisions, recalls and F-measure, we also collect user ratings for each field and user overall rating for each profile. From these ratings, we get similar conclusion about how well is our parser and data normalization working. We need to improve the classification of major and degree information and fix the bug in our education start date and end date extraction.
+Apart from precisions, recalls and F-measure, we also collect user ratings for each field and user overall rating for each profile. At here we only show average rating for each field. From these ratings, we get similar conclusion about how well is our parser and data normalisation working. We need to improve the classification of major and degree information and fix the bug in our education start date and end date extraction.
 
 \begin{figure}[H]
 \centering
@@ -363,25 +366,75 @@ During the development and evaluation, we found there're some drawbacks of the e
 \begin{enumerate}
 	\item Do not have information to group similar job title together. This is important as we want our query return more correct result and in the meantime keeps the query as simple as possible. For example, when one querying ``software engineer'' similar terms such as ``application developer, Java software engineer'' should all return as these job titles have no significant difference if we want to compare this job in IT over another industry. Doing this classification is hard, we will discuss 
 	\item Company names may have aliases. One example is ``Oracle'' and ``Oracle EMEA''. But since we cannot find company names database as ground truth, our system cannot handle this problem. This issue is very similar to the previous one, it needs we have very accurate ground truth.
-	\item As SPARQL has very limit function in datatime manipultation, the start date and end date approach in our model is not working really well. For example, if one user is looking for ``How many people had been working in a company for more then 5 years?''. The query is very hard to write so it would be easier if our model have ``year between'' field that address this requirement.
+	\item As SPARQL has very limit function in datetime manipulation, the start date and end date approach in our model is not working really well. For example, if one user is looking for ``How many people had been working in a company for more then 5 years?''. The query is very hard to write so it would be easier if our model have ``year between'' field that address this requirement.
 \end{enumerate}
 
 The details of possible solution of drawbacks will be discussed in next chapter, future works section.
 
 \section{System performance}
 
-In \autoref{subsec:env}, we list our software and hardware details. Here we want to show the performance of some critical modules, to provide more comprehensive details of the system.
+In \autoref{subsec:env}, we list our software and hardware details. Here we want to show the performance of some critical modules, to provide more comprehensive details of the system. One important things to know is that the performance measurements does not include database accessing and file serialisation and other miscellaneous, therefore, in production environment, the system performance could be less than the result we got.
 
 \subsection{Parsing performance}
 We run our parser 10 times, each time it parses 100 randomly selected profiles, the average time spending on parsing 100 profiles is: 18.27 seconds.
 
 \subsection{Normalising and converting performance}
-We run our RDF converter 10 times, each time in try to normalize the data in 100 profiles and convert it into RDF triples, the average time spending on this is: 
+We run our RDF converter 10 times, each time in try to normalise the data in 100 profiles and convert it into RDF triples, the average time spending on this is: 345.53 seconds.
 
+\newacronym{io}{IO}{input & output}
 \subsection{Query performance}
+We tried several queries with different level of complexity. Because some simple queries (for example, returning all triples) are simple but it takes a very long time on File \acrshort{io}, so we manually set ``soft limit'' equals to 2000 for each query. The ``soft limit'' means the maximum number of rows returned is 2000. Below is server case and the corresponding time:
+
+\subsubsection{Simple query that only return subject, predicate and object}
+\begin{verbatimtab}
+	select * where {?subject ?predicate ?object. }
+\end{verbatimtab}
+The time spend on this query is: 0.548360s, and it returned 2000 rows.
+
+\subsubsection{Simple query that asks from subject, predicate and object then summing up the subject}
+\begin{verbatimtab}
+	select (count(?subject) as ?total) where  {
+		?subject ?predicate ?object. 
+	}
+\end{verbatimtab}
+The time spend on this query is: 0.021132s, and it returned 1 rows.
+Notice that this query is 27 times faster that the previous query even though the complexity is higher. We don't know the implementation of 4store, but one possible explaination is that the COUNT method can be optimised so the program do not really need read 2000 rows to get the actually result.
+
+\subsubsection{A query that defines two relationships}
+\begin{verbatimtab}
+	select * where {
+		?person a foaf:Person;
+			lk:skill ?skill.
+	}
+\end{verbatimtab}
+The time spend on this query is: 0.134334s, and it returned 2000 rows.
+It is an interesting result because getting graph patterns is actually quicker than the first query, which only ask for all triples. One possible answer is the 4store SPARQL engine has special optimisation on graph matching.
+
+\subsubsection{A query that defines two relationships with group by and count}
+\begin{verbatimtab}
+	select ?city (count(?person) as ?pCount) where {
+		?person a foaf:Person ;
+			dbpedia-owl:city ?city .
+	} group by ?city
+\end{verbatimtab}
+The time spend on this query is: 0.011658s, and it returned 18 rows.
+This time, data aggregation query is actually quicker than simple ``print all'' query. This result demonstrate 4store implementation of data aggregation has very high performance.
+
+\subsubsection{A query that defines two relationships with group by, count and order by}
+\begin{verbatimtab}
+	select ?skill (count(?skill) as ?sCount) where{
+		?p a foaf:Person;
+			lk:skill ?skill.
+	} group by ?skill order by desc(?sCount)
+\end{verbatimtab}
+The time spend on this query is: 7.770524s, and it returned 16184 rows.
+This query takes very long time to execute. That is because to generate the correct result, the SPARQL engine has to split all the skill into groups and sum them up, there's no optimisation even we specify soft limit equals to 2000.
+
+\subsubsection{Conclusion}
+We can see that for complex group by, count and order by query, our system takes too long time to respond. One important factor that result in slow queries is the system hardware. Because we test the performance in production environment, the machine is an Amazon EC2 m1.medium instance. The hardware parameters are listed at \autoref{subsec:env}. If we can upgrade our server to high performance CPU instance, the problem should went away.
 
 \section{Contributions}
-\subsection{Resuable knowledge model from Linkedin public profiles}
+\subsection{Reusable knowledge model from LinkedIn public profiles}
 As shown in Figure~\ref{fig:KnowledgeModel}, we present a queryable, extendable knowledge graph that capture the data relationship of LinkedIn.com public profiles and company profiles. It can be used by LinkedIn internally or by other researchers who also interested in user generated content in LinkedIn.com.
 
 \subsection{Public online SPARQL endpoint for complex query about Irish industry}
@@ -392,4 +445,4 @@ The crawling strategy is scalable to any numbers of LinkedIn public profiles. If
 
 \subsection{Mashup based city information extraction strategy}
 
-Based on our user study, the strategy is widely accepted by our survey participants, with average of 0.85 F-score and 4.089/5 user rating. The approach can be generalize to get city information by company names. Another approach is to use Google reverse Geocoding service\footnote{\url{https://developers.google.com/maps/documentation/javascript/geocoding?csw=1\#ReverseGeocoding}}. However, even we don't have comparison result on hand, the result provided by reverse geocoding service seems to worse than using a country's yellowpage database.
+Based on our user study, the strategy is widely accepted by our survey participants, with average of 0.85 F-score and 4.089/5 user rating. The approach can be generalise to get city information by company names. Another approach is to use Google reverse Geocoding service\footnote{\url{https://developers.google.com/maps/documentation/javascript/geocoding?csw=1\#ReverseGeocoding}}. However, even we don't have comparison result on hand, the result provided by reverse geocoding service seems to worse than using a country's yellowpage database.
