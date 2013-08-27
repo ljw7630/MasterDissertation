@@ -1,5 +1,8 @@
 \chapter{Design}
 
+\section{Introduction}
+This chapter we discuss the requirements of the system, both funtional and non-functional, the knowledge model we designed and also the software architecture. In the architecture, we use modular programming paradigm for flexibility purpose. We also talk about decisions we made and also provide reasons to justify our decisions.
+
 \section{Requirements}
 In order to answer the research questions and produce public dataset at the end, the system should be capable to:
 \begin{enumerate}
@@ -15,9 +18,9 @@ Additionally, the system also have a number of non-functional requirements that 
 \begin{description}
 	\item \textbf{Crawling performance and parsing performance} \hfill \\
 	The system should be able to download and parse enough profiles in a small number of days. Because timeliness is the nature of user generated content, if it takes too long to do this, we lost the chance of getting first hand information.
-	\item Query performance \hfill \\
+	\item \textbf{Query performance} \hfill \\
 	The system should be able to respond to the query from user interface quickly enough to make sure the \gls{ui} usability.
-	\item The choise of programming language(s) \hfill \\
+	\item \textbf{The choise of programming language(s)} \hfill \\
 	The ideal programming language(s) for this project should be dynamic typing, widely used, cross platform scripting language. The reason behind that is we want quickly iterate the program. As parsing and converting user generated content are hard, we cannot make assumptions about anything. Therefore, statically typed, compiled programming language (such as C++ and Java) is incapable for this task. Perl, Python are two possible options. But since Python is easy to learn and have rich communities support in terms of Semantic Web and Natural Language processing, we finally decide to use Python to implement our parse and RDF converter.
 \end{description}
 
@@ -40,6 +43,27 @@ For a LinkedIn company profile, it might have, headquarters, company type (publi
 Our knowledge model links the personal profile with company profile using ``position''. The whole graph is linked so that we can perform arbitrary query. For example, we can discover the relations between education background and organisation through person and position.
 
 One key thing to note is Semantic Web is built around the idea of triples, which means an expression has the structure of ``subject'', ``predicate'' and ``object''. In the graph, the names in circle are ``Class'', the link between two ``Classes'' is call ``Property'' (predicate), it is used to link an instance of one Class to an instance of another Class.
+
+\subsection{Reusing existing ontologies}
+Ontology reuse is an important concept in Ontology Engineering. According to \cite{Simperl2009905}, it increases the quality of the application, achieves interoperability, improves cost in ontology development and helps applications agree on the domain concept. One mission of Semantic Web is to achieve data interoperability. If two applications cannot understand the meaning or the semantic of data from the other side, then these two applications cannot communicate. Therefore, we need to try our best to reuse existing, well known Ontologies so that other Semantic Web application can at least partially understand our domain, hence reduce the needs of Ontology mapping.
+
+\newacronym{skos}{SKOS}{Simple Knowledge Organization System}
+\newacronym{foaf}{FOAF}{Friend of A Friend}
+%\newacronym{aiiso}{AIISO}{Academic Institution Internal Structure Ontology}
+
+In Figure~\ref{fig:KnowledgeModel}, we partially reuse following vocabularies or ontologies: \gls{skos}, \gls{aiiso}, DBpedia, \gls{foaf}. However, the reasons for resuing them are varies:
+\begin{description}
+	\item \gls{skos} \hfill \\
+	Just as its name suggest, SKOS is used for ``knowledge organization'', such as ``structure vocabularies'' and ``classification schemes''\cite{miles2007skos}. We can use this language to define academic disciplines (major). For example, one LinkedIn user study ``Computer Science'', another one study ``Artificial Intelligence'', if we define, in a SKOS manner, say ``Computer Science'' is a ``broader'' term of ``Artificial Intelligence'', then our system can handle the discipline hierarchy. It also good for our endpoint users. Since hierarchy meanings both general and specific, so users who write SPARQL queries to get knowledge from our system can have more simple but detailed control of what should be returned.
+	\item \gls{aiiso} \hfill \\
+	We make use AIISO class definition to define our education part. As the Ontology is used to describe the internal state of an Academic Institution, it has definition about college, course (we also called major or discipline), and degree. So we don't need to create our own concept (since no one know anything about our ontology) about education.
+	\item Dbpedia \hfill \\
+	In the previous chapter, we already introduce the importance of Dbpedia. The more terms we can reuse from Dbpedia, the more interoperability we obtain. We use both class definition and property definition from Dbpedia, they are: City (Class), city (property), industry (property), language (property), Language (Class). With FOAF and AIISO, these three ontologies form a backbone of my knowledge model.
+	\item \gls{foaf} \hfill \\
+	FOAF is another widely used ontology, it is used to describe and link the data in Social network\cite{golbeck2008linking}. We use foaf:Person to define our LinkedIn user, and use foaf:Organization to define the company in LinkedIn work experience.
+\end{description}
+
+Even though we couldn't find and reuse enough existing properties in our knowledge model, but my major Class are all from well known ontologies, which means there is a chance to allow other applications to discover our contents.
 
 \section{System architecture}
 
@@ -75,3 +99,6 @@ Firstly, we decide to separate the profile downloader module with the profile pa
 Secondly, a simple database is required to keep track of which url is downloaded, which profile is parsed and had been converted into RDF format. Because we are handling a very large amount of profiles, and the correctness of the parse has to be adjusted during parsing, so it's unrealistic to assume that our program can parse and convert all the data with one-click. For example, if an unhandled exception occurred and stop the program, we can start parsing the remaining profiles if we have a database keeps track of the status.
 
 Thirdly, just as the first reason we highlighted, the parser module, data normalisation module and RDF conversion module will form a pipeline. It means the output from previous module will be feed as input of the next module. The reason is, we don't have to store the intermediate result from the previous two modules.
+
+\section{Summary}
+We define our system requirements and architecture in this chapter, so in the next chapter, we will discussed further about technologies and libraries we use and how we use. We also discuss the decisions we made and the reasons for choosing them.

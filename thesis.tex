@@ -36,7 +36,7 @@
 \usepackage{url}
 \urlstyle{rm}
 
-\usepackage[bibstyle= nature, citestyle=numeric-comp, sorting=none]{biblatex}
+\usepackage[bibstyle=ieee, citestyle=numeric-comp, sorting=none]{biblatex}
 
 \usepackage[center]{caption}
 
@@ -49,9 +49,17 @@
 \usepackage[acronym]{glossaries}
 \makeglossaries
 
-\usepackage{hyperref}
+%\usepackage{moreverb} % code snippet
+\usepackage{fancyvrb}
 
-\usepackage{moreverb} % code snippet
+\usepackage[
+  hidelinks,
+  letterpaper,
+  bookmarksopen,
+  bookmarksnumbered
+]{hyperref}
+\hypersetup{pdftex,colorlinks=true,allcolors=blue}
+\usepackage{hypcap}
 
 \bibliography{reference}                               %% also use the \bibliography command
 
@@ -173,11 +181,17 @@
 % 			                          %% acknowledgments; it can be anything
 % Give many thanks and stuff...
 
+I want to say my sincere thanks to my supervisor, Melike Sah, who spend so much effort in teaching me how to research and giving me so many valuable suggestions. My thesis is based on her idea and her assistance. And my parents, my friends and everyone who support me during the course, I feel life in post-graduate is so meaning when you beside me.
+
 \end{thesisacknowledgments}                       %% allowed in LaTeX2e par-mode.
 
 \begin{thesisabstract}
 
-% The abstract or summary or whatever...
+User generated content from large Social Network is considered an important knowledge source in the future. The data is inherently unstructured or semi-structured. 
+
+In this project, we perform a case study on LinkedIn Ireland public profiles, to investigate how to develop a reusable knowledge model for it. Apart from the search engine in LinkedIn.com itself, there's no well known public available endpoint that allows users to query knowledge of interest from LinkedIn. We present a system that download and convert the raw webpages from LinkedIn to a machine-readable,  interoperable format using Data Mining and Semantic Web technologies. One of the outcomes from this projet is a dataset that contains facts about Irish industry and education in a structured manner.
+
+The resulted dataset is public accessible though SPARQL endpoint, everyone who interested in facts about Ireland can use HTTP request to access it.
 
 \end{thesisabstract}
 

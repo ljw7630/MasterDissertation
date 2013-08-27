@@ -1,13 +1,16 @@
-\chapter{Implementation}
+\chapter{Implementation}\label{chap:impl}
+
+\section{Introduction}
+In the previous chapter, we specify the requirements of the system. Therefore we can start implemeting each module to meet the needs of our design. In this chapter, we will discuss the programming languages and corresponding libraries we used, and some reusable strategies. We also provide the system environment as reference.
 
 \section{Programming languages and corresponding libraries}
 
 \subsection{Python and its libraries}
 As discussed in previous chapter, We used Python as the main programming language. During the implementation period, the below is a list of Python libraries that helped to finish this project:
 \begin{description}
-	\item Beautiful Soup \hfill \\
+	\item \textbf{Beautiful Soup} \hfill \\
 	A easy-to-use library for parsing HTML documents. It provides both flexibility and performance for parsing HTMl or XML files.
-	\item RDFLib \hfill \\
+	\item \textbf{RDFLib} \hfill \\
 	RDFLib is a library that allow Python to manipulate RDF files. It has RDF parser, serializer and also SPARQL 1.1 implementation. This library is all we need for RDF format conversion. And we can also test our data with its built-in SPARQL query API.
 \end{description}
 
@@ -19,11 +22,14 @@ Another option is pylucene. It is the Python wrapper for Lucene text search engi
 
 Therefore, we use Java to implement our data normalisation engine and use socket to communicate with our Python modules. The process of the socket communication in shown in Figure~\ref{fig:SystemArchitecture}.
 
-\subsection{System environment}
+\subsection{Modular porogramming paradigm}
+Instead of using popular Object Oriented paradigm, we use Modular programming in developing our system. Python is particularly suitable for this programming paradigm. The main idea is to break a large system into each individual, seperated module to accomplish one specific function. The advantage for using the paradigm is that we can debug each module seperately so that error data (as it's very common in Data Mining) will not propagate across the system.
 
+\subsection{System environment}\label{subsec:env}
+\newacronym{cpu}{CPU}{Central processing unit}
 The technologies and libraries used in this project are all open source. In order to utilise the command line and built-in tools, UNIX-like system is used in development but there is not problem in running the code on Windows machine. It requires Python2.7 and Java1.7.
 
-The development environment is Mac OSX Mountain Lion 10.8, while the production environment is Amazon EC2 Ubuntu12.04.
+The production environment is Amazon EC2 64 bit Ubuntu12.04, Intel Xeon \acrlong{cpu} E5-2650 2.00GHZ, 4G memory.
 
 \section{Strategy}
 
@@ -47,3 +53,6 @@ The strategy is quite simple, it constitutes of three cases:
 \end{enumerate}
 
 In the next chapter, statistics will be shown to demonstrate the strategy is working well based on user study.
+
+\section{Summary}
+In this chapter, we discussed the programming languages we used, the production system environment, profile download strategy and city traction strategy. Next chapter, we will demonstrate our evaluation methods and provide some quality metrics of our dataset.

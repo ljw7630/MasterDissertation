@@ -7,6 +7,8 @@ Social media like Facebook and Twitter are gradually changing the world, and bec
 
 LinkedIn.com, the world's largest profession network\footnote{According to their official website: http://www.linkedin.com/about-us}, contains a large amount of hidden career and country base industry information, but yet waiting to be discovered. Unlike Facebook and Twitter, the study of LinkedIn.com is not getting as much attentions as it should be. 
 
+Semantic Web, as believed by many researchers, will be the ``Next generation of  knowledge representation and processing technology"\cite{shadbolt2006}. It aims to extends the world of human readable webpage and documents to a new world of machine understandable, interoperable metadata.
+
 \section{Motivation}
 The lack of study of LinkedIn.com provides an opportunity. This project use LinkedIn Ireland as the study subject, and aims to develop a reusable, queryable knowledge model for LinkedIn public profiles. The importance of the project can be described in several aspects:
 
@@ -27,8 +29,25 @@ Finally, user interface can built on top of the knowledge model and the dataset 
 %Thirdly, if students and job seekers know about the number of people and the number of companies in different areas, they can make more wise decision in job searching and skill learning.
 
 \section{Research Question}
+The research question behind the background information is that can we take advantages from Semantic Web technologies to build a knowledge model and generate useful dataset from the public data provided by LinkedIn.com. In order to achieve interoperability and common agreement, can we reuse existing ontologies and public vocabularies and intergrate them into our model? How useful is the data is and is that possible to have a working user interface that make use of our dataset and demonstrate some use cases?
 
-\section{Outline}
+We will discuss our achievements and contributions comprehensively in this thesis.
+
+\section{Contributions}
+\subsection{Reusable knowledge model from LinkedIn public profiles}
+We present a queryable, extendable knowledge graph (Figure~\ref{fig:KnowledgeModel}) that capture the data relationship of LinkedIn.com public profiles and company profiles. It can be used by LinkedIn internally or by other researchers who also interested in user generated content in LinkedIn.com.
+
+\subsection{Public online SPARQL endpoint for complex query about Irish industry}
+We publish our SPARQL endpoint at \url{http://goo.gl/5HyziV}. It's a standard SPARQL endpoint that powered by 4store\cite{harris20094store}. Our endpoint accept HTTP POST requests and support a number of RDF format, such as XML, JSON, plain and turtle. Anyone who interested in discover Irish industry and college facts can use this service.
+
+\subsection{Scalable crawling strategy}
+The crawling strategy is scalable to any numbers of LinkedIn public profiles. If we consider a profile is a node, since in the profile, LinkedIn will suggest 6 to 8 similar profiles (nodes), the graph is expanding very quickly (exponential increase). Therefore, data mining practitioners (and other researchers) can make use of our strategy, as discussed in \autoref{chap:impl}, to download profiles in any subdomains of LinkedIn.
+
+\subsection{Mashup based city information extraction strategy}
+
+Based on our user study, the strategy is widely accepted by our survey participants, with average of 0.85 F-score and 4.089/5 user rating. The approach can be generalise to get city information by company names. Another approach is to use Google reverse Geocoding service\footnote{\url{https://developers.google.com/maps/documentation/javascript/geocoding?csw=1\#ReverseGeocoding}}. However, even we don't have comparison result on hand, the result provided by reverse geocoding service seems to worse than using a country's yellowpage database.
+
+\section{Outline of the thesis}
 \paragraph{}
 Chapter 2 discusses the state of the art in Data extraction and Knowledge modelling.
 \paragraph{}
